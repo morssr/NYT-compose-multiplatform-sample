@@ -33,6 +33,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NYT_news_KMP"
+rootProject.name = "NytNews_KMP_Sample"
 include(":androidApp")
 include(":shared")
