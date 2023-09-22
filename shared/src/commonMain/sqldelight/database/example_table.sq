@@ -1,0 +1,10 @@
+CREATE TABLE exampleEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title Text NOT NULL,
+    content TEXT NOT NULL
+    );
+
+    getExamplesList:
+    SELECT *
+    FROM exampleEntity
+    ORDER BY id DESC;

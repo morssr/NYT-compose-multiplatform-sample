@@ -1,0 +1,101 @@
+[versions]
+core = "1.9.0"
+kotlinx-coroutines-core = "1.7.1"
+
+androidx-core = "1.7.0"
+androidx-activity-compose = "1.7.2"
+androidx-compose = "1.5.1"
+
+ktorClient = "2.3.4"
+voyager = "1.0.0-rc07"
+kotlinx-datetime = "0.4.0"
+kotlinx-serialization = "1.6.0"
+sqlDelight = "2.0.0"
+koin = "3.5.0"
+koinCompose = "1.1.0"
+datastorePreferencesCore = "1.1.0-dev01"
+kermit = "2.0.0-RC4"
+kamelImage = "0.7.3"
+mokoResources = "0.23.0"
+mokoMvvm = "0.16.1"
+
+[libraries]
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+
+# Android
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+
+# Ktor - Networking
+ktor-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClient" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClient" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClient" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClient" }
+ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClient" }
+ktor-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktorClient" }
+ktor-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorClient" }
+
+# Koin - DI
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
+
+# Database - SQLDelight
+sqlDelight-androidDriver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-nativeDriver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+
+# Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "core" }
+
+# Date & Time
+kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+# Serialization
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# Navigation - Voyager
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+
+# DataStore - Preferences
+datastore-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
+
+# Resources - MoKo
+moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "mokoResources" }
+moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "mokoResources" }
+moko-resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "mokoResources" }
+
+# MVVM - MoKo
+moko-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mokoMvvm" }
+moko-mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "mokoMvvm" }
+moko-mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "mokoMvvm" }
+moko-mvvm-flow-compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "mokoMvvm" }
+
+# Logging
+logger-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+
+#Image Loading
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+
+[plugins]
+
+[bundles]
+voyager = [
+    "voyager-koin",
+    "voyager-transitions",
+    "voyager-tabNavigator",
+    #disable for now, causes build error
+#    "voyager-bottomSheetNavigator",
+    "voyager-navigator"
+]
+
+
