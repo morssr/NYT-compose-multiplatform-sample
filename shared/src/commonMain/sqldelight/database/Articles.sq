@@ -1,0 +1,51 @@
+CREATE TABLE IF NOT EXISTS Articles (
+    id                  TEXT NOT NULL PRIMARY KEY,
+    topic               TEXT NOT NULL,
+    subsection          TEXT NOT NULL,
+    title               TEXT NOT NULL,
+    content             TEXT NOT NULL,
+    byline              TEXT NOT NULL,
+    item_type           TEXT NOT NULL,
+    published_date      INTEGER NOT NULL,
+    created_date        INTEGER NOT NULL,
+    updated_date        INTEGER NOT NULL,
+    image_url           TEXT NOT NULL,
+    story_url           TEXT NOT NULL
+);
+
+getAllArticles:
+SELECT *
+FROM Articles;
+
+getArticleById:
+SELECT *
+FROM Articles
+WHERE id = ?;
+
+getArticlesByTopic:
+SELECT *
+FROM Articles
+WHERE topic = ?;
+
+insertOrReplaceArticles:
+INSERT OR REPLACE INTO Articles (
+    id,
+    topic,
+    subsection,
+    title,
+    content,
+    byline,
+    item_type,
+    published_date,
+    created_date,
+    updated_date,
+    image_url,
+    story_url
+) VALUES ?;
+
+deleteAllArticles:
+DELETE FROM Articles;
+
+deleteArticlesByTopic:
+DELETE FROM Articles
+WHERE topic = ?;

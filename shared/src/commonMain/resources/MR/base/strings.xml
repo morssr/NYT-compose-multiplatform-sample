@@ -2,4 +2,10 @@
 <resources>
     <string name="hello_world">Hello World</string>
     <string name="click_me">Click Me!</string>
+    <string name="expand_text_more">more..</string>
+
+<!--content description-->
+    <string name="add_article_to_bookmarks">add article to bookmarks</string>
+    <string name="remove_article_from_bookmarks">remove article from bookmarks</string>
+
 </resources>

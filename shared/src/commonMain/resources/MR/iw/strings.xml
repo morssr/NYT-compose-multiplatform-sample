@@ -2,4 +2,9 @@
 <resources>
     <string name="hello_world">שלום עולם!</string>
     <string name="click_me">לחץ עליי!</string>
+    <string name="expand_text_more">more..</string>
+
+    <!--content description-->
+    <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>
+    <string name="remove_article_from_bookmarks">הסר מאמר מהמועדפים</string>
 </resources>

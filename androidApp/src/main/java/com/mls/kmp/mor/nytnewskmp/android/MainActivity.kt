@@ -19,9 +19,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        //fix for "Please use androidContext() function in your KoinApplication configuration."
-//        val prod: ProductsDao = get()
-
         setContent {
             val darkTheme = isSystemInDarkTheme()
 
