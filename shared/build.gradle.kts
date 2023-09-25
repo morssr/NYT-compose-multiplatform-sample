@@ -71,6 +71,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.ktor.mock)
+                implementation(libs.koin.test)
 
             }
         }
@@ -84,7 +85,14 @@ kotlin {
             }
         }
 
-        val androidUnitTest by getting
+        val androidUnitTest by getting{
+            dependsOn(commonTest)
+            dependencies {
+//                implementation(libs.androidx.core.ktx)
+//                implementation("junit:junit:4.13.2")
+//                implementation("org.robolectric:robolectric:4.9")
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
