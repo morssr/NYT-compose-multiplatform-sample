@@ -2,10 +2,43 @@
 <resources>
     <string name="hello_world">Hello World</string>
     <string name="click_me">Click Me!</string>
-    <string name="expand_text_more">more..</string>
+    <string name="expand_text_more">…more</string>
 
-<!--content description-->
+    <!--titles-->
+    <string name="what_you_curious_about">What You Curious About?</string>
+    <string name="your_topics">Edit Your Topics</string>
+
+    <!--content description-->
     <string name="add_article_to_bookmarks">add article to bookmarks</string>
     <string name="remove_article_from_bookmarks">remove article from bookmarks</string>
+    <string name="edit_topics_content_description">Edit topics</string>
+
+    <!--Topics-->
+    <string name="home">Home</string>
+    <string name="politics">Politics</string>
+    <string name="books">Books</string>
+    <string name="health">Health</string>
+    <string name="technology">Technology</string>
+    <string name="automobiles">Automobiles</string>
+    <string name="arts">Arts</string>
+    <string name="science">Science</string>
+    <string name="fashion">Fashion</string>
+    <string name="sports">Sports</string>
+    <string name="business">Business</string>
+    <string name="food">Food</string>
+    <string name="travel">Travel</string>
+    <string name="insider">Insider</string>
+    <string name="magazine">Magazine</string>
+    <string name="movies">Movies</string>
+    <string name="national">National</string>
+    <string name="ny_region">NY Region</string>
+    <string name="obituaries">Obituaries</string>
+    <string name="opinion">Opinion</string>
+    <string name="real_estate">Real Estate</string>
+    <string name="sunday_review">Sunday Review</string>
+    <string name="theater">Theater</string>
+    <string name="t_magazine">T-Magazine</string>
+    <string name="upshot">Upshot</string>
+    <string name="world">World</string>
 
 </resources>

@@ -4,7 +4,40 @@
     <string name="click_me">לחץ עליי!</string>
     <string name="expand_text_more">more..</string>
 
+    <!--titles-->
+    <string name="what_you_curious_about">תחומי העיניין שלך</string>
+    <string name="edit_topics_content_description">ערוך תחומי עניין</string>
+
+
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>
     <string name="remove_article_from_bookmarks">הסר מאמר מהמועדפים</string>
+
+    <!--Topics-->
+    <string name="home">בית</string>
+    <string name="politics">פוליטיקה</string>
+    <string name="books">ספרים</string>
+    <string name="health">בריאות</string>
+    <string name="technology">טכנולוגיה</string>
+    <string name="automobiles">רכב</string>
+    <string name="arts">אומנות</string>
+    <string name="science">מדע</string>
+    <string name="fashion">אופנה</string>
+    <string name="sports">ספורט</string>
+    <string name="business">עסקים</string>
+    <string name="food">אוכל</string>
+    <string name="travel">טיולים</string>
+    <string name="insider">מבט מבפנים</string>
+    <string name="magazine">מגזין</string>
+    <string name="movies">קולנוע</string>
+    <string name="national">לאומי</string>
+    <string name="ny_region">ניו-יורק</string>
+    <string name="obituaries">מודעות אבל</string>
+    <string name="opinion">טור דעה</string>
+    <string name="real_estate">נדלן</string>
+    <string name="sunday_review">סקירת יום ראשון</string>
+    <string name="theater">תיאטרון</string>
+    <string name="t_magazine">מגזין-טי</string>
+    <string name="upshot">תוצאה</string>
+    <string name="world">עולם</string>
 </resources>

@@ -8,10 +8,15 @@ import com.mls.kmp.mor.nytnewskmp.core.api.ApiClient
 import com.mls.kmp.mor.nytnewskmp.data.aricles.articlesModule
 import com.mls.kmp.mor.nytnewskmp.database.AppDatabase
 import com.mls.kmp.mor.nytnewskmp.ui.uiModule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val mainModule = module {
+
+    //TODO: Check if this is the best way to provide CoroutineScope
+    single<CoroutineScope> { GlobalScope }
 
     single { ApiClient() }
     single { AppDatabase(driver = get()) }

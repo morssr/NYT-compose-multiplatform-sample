@@ -6,6 +6,7 @@ import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDaoImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val articlesModule = module {
@@ -19,10 +20,12 @@ val articlesModule = module {
             logger = get(),
         )
     }
+
     single<ArticlesRepository> {
         ArticlesRepositoryImpl(
             articlesApi = get(),
             articlesDao = get(),
+            preferences = get(qualifier = named(TOPICS_PREFERENCES_FILE_NAME)),
             logger = get(),
         )
     }

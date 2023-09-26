@@ -1,5 +1,9 @@
 package com.mls.kmp.mor.nytnewskmp.data.aricles
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApi
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
@@ -19,6 +23,7 @@ private const val TAG = "ArticlesRepositoryImpl"
 class ArticlesRepositoryImpl(
     private val articlesApi: ArticlesApi,
     private val articlesDao: ArticlesDao,
+    private val preferences: DataStore<Preferences>,
     logger: Logger,
 ) : ArticlesRepository {
 
@@ -83,10 +88,22 @@ class ArticlesRepositoryImpl(
     }
 
     override fun getMyTopicsListStream(): Flow<List<Topics>> {
-        TODO()
+        log.d { "getMyTopicsList: called" }
+        return preferences.data.map { preferences ->
+            preferences[stringPreferencesKey(FAVORITE_TOPICS_PREFERENCES_KEY)]
+                ?: defaultTopics.joinToString(separator = ",") { it.topicName }
+        }.map { topicsList ->
+            topicsList.split(",").map { topicName ->
+                Topics.values().first { it.topicName == topicName }
+            }
+        }
     }
 
     override suspend fun updateMyTopicsList(topicsList: List<Topics>) {
-        TODO()
+        log.d { "updateMyTopicsList: called with topicsList: $topicsList" }
+        val topicsString = topicsList.joinToString(separator = ",") { it.topicName }
+        preferences.edit {
+            it[stringPreferencesKey(FAVORITE_TOPICS_PREFERENCES_KEY)] = topicsString
+        }
     }
 }

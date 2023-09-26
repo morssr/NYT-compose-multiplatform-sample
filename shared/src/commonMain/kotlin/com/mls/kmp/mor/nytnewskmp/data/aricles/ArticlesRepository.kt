@@ -9,8 +9,8 @@ interface ArticlesRepository {
     suspend fun getArticleById(id: String): ArticleModel
 
     fun getStoriesByTopicStream(
-        topic: Topics,
-        remoteSync: Boolean
+        topic: Topics = Topics.HOME,
+        remoteSync: Boolean = true
     ): Flow<Response<List<ArticleModel>>>
 
     suspend fun refreshArticlesByTopic(topic: Topics): ApiResponse<Unit>
