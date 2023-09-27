@@ -1,6 +1,4 @@
-package com.mls.kmp.mor.nytnewskmp.data.aricles
-
-import com.mls.kmp.mor.nytnewskmp.data.common.Topics
+package com.mls.kmp.mor.nytnewskmp.data.common
 
 const val TOPICS_PREFERENCES_FILE_NAME = "nyt_topics.preferences_pb"
 const val FAVORITE_TOPICS_PREFERENCES_KEY = "favorite_topics"

@@ -2,7 +2,7 @@ package com.mls.kmp.mor.nytnewskmp
 
 import com.mls.kmp.mor.nytnewskmp.core.data.DatabaseDriverFactory
 import com.mls.kmp.mor.nytnewskmp.core.data.createDataStore
-import com.mls.kmp.mor.nytnewskmp.data.aricles.TOPICS_PREFERENCES_FILE_NAME
+import com.mls.kmp.mor.nytnewskmp.data.common.TOPICS_PREFERENCES_FILE_NAME
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.withOptions

@@ -4,7 +4,10 @@ import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApi
 import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApiImpl
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDaoImpl
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesRepository
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesSyncManager
 import com.mls.kmp.mor.nytnewskmp.data.common.SyncManager
+import com.mls.kmp.mor.nytnewskmp.data.common.TOPICS_PREFERENCES_FILE_NAME
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.qualifier.named

@@ -1,6 +1,6 @@
 package com.mls.kmp.mor.nytnewskmp.ui.articles
 
-import com.mls.kmp.mor.nytnewskmp.data.aricles.ArticleModel
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticleModel
 
 data class ArticleUIModel(
     val id: String,

@@ -1,4 +1,4 @@
-package com.mls.kmp.mor.nytnewskmp.data.aricles
+package com.mls.kmp.mor.nytnewskmp.data.aricles.common
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

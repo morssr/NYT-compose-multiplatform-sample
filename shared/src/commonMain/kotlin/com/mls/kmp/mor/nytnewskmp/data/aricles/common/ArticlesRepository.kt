@@ -1,4 +1,4 @@
-package com.mls.kmp.mor.nytnewskmp.data.aricles
+package com.mls.kmp.mor.nytnewskmp.data.aricles.common
 
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.utils.ApiResponse

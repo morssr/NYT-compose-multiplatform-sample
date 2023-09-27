@@ -1,6 +1,5 @@
 package com.mls.kmp.mor.nytnewskmp.data.aricles.common
 
-import com.mls.kmp.mor.nytnewskmp.data.aricles.ArticleModel
 import com.mls.kmp.mor.nytnewskmp.data.aricles.api.TopicResponse
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticleEntity
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics

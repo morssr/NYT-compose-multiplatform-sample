@@ -3,8 +3,8 @@ package com.mls.kmp.mor.nytnewskmp.ui
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import co.touchlab.kermit.Logger
-import com.mls.kmp.mor.nytnewskmp.data.aricles.ArticlesRepository
-import com.mls.kmp.mor.nytnewskmp.data.aricles.defaultTopics
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesRepository
+import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUIList

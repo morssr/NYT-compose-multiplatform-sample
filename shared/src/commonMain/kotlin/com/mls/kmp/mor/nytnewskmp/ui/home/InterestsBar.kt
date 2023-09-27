@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.mls.kmp.mor.nytnewskmp.data.aricles.defaultTopics
+import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.library.MR
 import dev.icerock.moko.resources.compose.painterResource

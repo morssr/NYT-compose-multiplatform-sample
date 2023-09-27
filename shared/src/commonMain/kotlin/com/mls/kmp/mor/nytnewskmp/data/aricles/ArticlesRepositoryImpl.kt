@@ -7,11 +7,15 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApi
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticleModel
+import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesRepository
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleEntityList
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleModel
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleModelList
+import com.mls.kmp.mor.nytnewskmp.data.common.FAVORITE_TOPICS_PREFERENCES_KEY
 import com.mls.kmp.mor.nytnewskmp.data.common.SyncManager
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
+import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
 import com.mls.kmp.mor.nytnewskmp.utils.ApiResponse
 import com.mls.kmp.mor.nytnewskmp.utils.Response
 import kotlinx.coroutines.flow.Flow

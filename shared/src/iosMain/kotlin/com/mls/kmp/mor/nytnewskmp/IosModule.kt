@@ -2,7 +2,7 @@ package com.mls.kmp.mor.nytnewskmp
 
 import com.mls.kmp.mor.nytnewskmp.core.data.DatabaseDriverFactory
 import com.mls.kmp.mor.nytnewskmp.core.data.createDataStore
-import com.mls.kmp.mor.nytnewskmp.data.aricles.TOPICS_PREFERENCES_FILE_NAME
+import com.mls.kmp.mor.nytnewskmp.data.common.TOPICS_PREFERENCES_FILE_NAME
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.withOptions
@@ -26,7 +26,7 @@ actual val platformModule = module {
                 create = false,
                 error = null,
             )
-            requireNotNull(documentDirectory).path + "/${TOPICS_PREFERENCES_FILE_NAME}"
+            requireNotNull(documentDirectory).path + "/$TOPICS_PREFERENCES_FILE_NAME"
         }
     } withOptions {
         createdAtStart()
