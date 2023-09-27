@@ -4,6 +4,7 @@ import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApi
 import com.mls.kmp.mor.nytnewskmp.data.aricles.api.ArticlesApiImpl
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
 import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDaoImpl
+import com.mls.kmp.mor.nytnewskmp.data.common.SyncManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.qualifier.named
@@ -21,10 +22,18 @@ val articlesModule = module {
         )
     }
 
+    single<SyncManager> {
+        ArticlesSyncManager(
+            preferences = get(qualifier = named(TOPICS_PREFERENCES_FILE_NAME)),
+            logger = get()
+        )
+    }
+
     single<ArticlesRepository> {
         ArticlesRepositoryImpl(
             articlesApi = get(),
             articlesDao = get(),
+            articlesSyncManager = get(),
             preferences = get(qualifier = named(TOPICS_PREFERENCES_FILE_NAME)),
             logger = get(),
         )

@@ -10,6 +10,9 @@ import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUIList
 import com.mls.kmp.mor.nytnewskmp.utils.Response
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -37,8 +40,13 @@ class HomeScreenViewModel(
             ).launchIn(coroutineScope)
 
 
-        val topic = Topics.HOME
-        repository.getStoriesByTopicStream(topic = Topics.HOME)
+        mutableState
+            .map { it.currentTopic }
+            .distinctUntilChanged()
+            .debounce(350)
+            .flatMapLatest { topic ->
+                repository.getArticlesStreamIfRequired(topic = topic)
+            }
             .stateIn(
                 coroutineScope,
                 started = SharingStarted.Lazily,
@@ -59,7 +67,7 @@ class HomeScreenViewModel(
                 mutableState.update {
                     it.copy(
                         feedsStates = it.feedsStates.toMutableMap().apply {
-                            this[topic] = state
+                            this[it.currentTopic] = state
                         }
                     )
                 }
@@ -84,7 +92,7 @@ class HomeScreenViewModel(
 data class HomeScreenState(
     val currentTopic: Topics = Topics.HOME,
     val topics: List<Topics> = listOf(Topics.HOME),
-    val feedsStates: Map<Topics, ArticlesFeedState> = mapOf(Topics.HOME to ArticlesFeedState.Loading),
+    val feedsStates: Map<Topics, ArticlesFeedState> = mapOf(currentTopic to ArticlesFeedState.Loading),
     val dialogSelector: DialogSelector = DialogSelector.None
 )
 

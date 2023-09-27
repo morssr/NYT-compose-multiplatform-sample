@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.Flow
 interface ArticlesRepository {
     suspend fun getArticleById(id: String): ArticleModel
 
-    fun getStoriesByTopicStream(
+    fun getArticlesStreamIfRequired(
+        topic: Topics = Topics.HOME
+    ): Flow<Response<List<ArticleModel>>>
+
+    fun getArticlesByTopicStream(
         topic: Topics = Topics.HOME,
         remoteSync: Boolean = true
     ): Flow<Response<List<ArticleModel>>>

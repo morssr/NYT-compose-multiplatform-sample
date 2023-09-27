@@ -10,6 +10,7 @@ import com.mls.kmp.mor.nytnewskmp.data.aricles.cache.ArticlesDao
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleEntityList
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleModel
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.toArticleModelList
+import com.mls.kmp.mor.nytnewskmp.data.common.SyncManager
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.utils.ApiResponse
 import com.mls.kmp.mor.nytnewskmp.utils.Response
@@ -23,6 +24,7 @@ private const val TAG = "ArticlesRepositoryImpl"
 class ArticlesRepositoryImpl(
     private val articlesApi: ArticlesApi,
     private val articlesDao: ArticlesDao,
+    private val articlesSyncManager: SyncManager,
     private val preferences: DataStore<Preferences>,
     logger: Logger,
 ) : ArticlesRepository {
@@ -34,7 +36,15 @@ class ArticlesRepositoryImpl(
         return articlesDao.getArticleById(id).toArticleModel()
     }
 
-    override fun getStoriesByTopicStream(
+    override fun getArticlesStreamIfRequired(topic: Topics): Flow<Response<List<ArticleModel>>> =
+        flow {
+            log.v { "getArticlesStreamIfRequired() called with topic: $topic" }
+            val isSyncNeeded = articlesSyncManager.isSyncNeeded(topic)
+            log.d { "getArticlesStreamIfRequired() isSyncNeeded: $isSyncNeeded" }
+            emitAll(getArticlesByTopicStream(topic, remoteSync = isSyncNeeded))
+        }
+
+    override fun getArticlesByTopicStream(
         topic: Topics,
         remoteSync: Boolean
     ): Flow<Response<List<ArticleModel>>> = flow {
@@ -43,7 +53,7 @@ class ArticlesRepositoryImpl(
 
         if (!remoteSync) {
             emitAll(
-                articlesDao.getAllArticlesStream().map {
+                articlesDao.getArticlesStreamByTopic(topic.topicName).map {
                     Response.Success(it.toArticleModelList())
                 }
             )
@@ -51,6 +61,7 @@ class ArticlesRepositoryImpl(
             when (val result = refreshArticlesByTopic(topic)) {
                 is ApiResponse.Success -> {
                     log.v { "getArticlesByTopic() success" }
+                    articlesSyncManager.updateLastSyncTimestamp(topic)
                     emitAll(
                         articlesDao.getArticlesStreamByTopic(topic.topicName).map {
                             Response.Success(it.toArticleModelList())

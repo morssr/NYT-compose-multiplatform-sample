@@ -22,12 +22,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
+import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBottomSheetDialog
@@ -93,10 +93,7 @@ fun HomeScreenContent(
                 )
             }
 
-
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-            ) {
+            Column(modifier = Modifier) {
 
                 InterestsBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
 
@@ -114,11 +111,13 @@ fun HomeScreenContent(
                 HorizontalPager(
                     state = pagerState,
                     pageSpacing = 16.dp,
+                    //TODO test the effect
+//                    beyondBoundsPageCount = 1
                 ) {
 
                     when (val feedState = articlesStateMap[topics[it]]) {
                         is ArticlesFeedState.Loading -> {
-                            Text(text = "Loading")
+                            LoadingShimmerArticlesList()
                         }
 
                         is ArticlesFeedState.Error -> {
@@ -134,7 +133,10 @@ fun HomeScreenContent(
                             )
                         }
 
-                        null -> TODO()
+                        //TODO check null is needed
+                        null -> {
+                            println("null")
+                        }
                     }
                 }
             }
