@@ -4,6 +4,11 @@
     <string name="click_me">Click Me!</string>
     <string name="expand_text_more">…more</string>
 
+    <!--Navigation-->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_search">Search</string>
+    <string name="navigation_bookmarks">Bookmarks</string>
+
     <!--titles-->
     <string name="what_you_curious_about">What You Curious About?</string>
     <string name="your_topics">Edit Your Topics</string>

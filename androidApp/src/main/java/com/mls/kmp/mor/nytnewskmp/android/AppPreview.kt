@@ -29,3 +29,11 @@ fun ShimmerArticleListPreview() {
         LoadingShimmerArticlesList()
     }
 }
+
+@Preview
+@Composable
+fun Prev() {
+    MyAppTheme {
+        LoadingShimmerArticlesList()
+    }
+}

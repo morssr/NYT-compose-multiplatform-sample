@@ -1,13 +1,9 @@
 package com.mls.kmp.mor.nytnewskmp.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -25,12 +21,17 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
+import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
+import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBottomSheetDialog
+import com.mls.kmp.mor.nytnewskmp.utils.findRouteNavigator
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -39,6 +40,8 @@ class HomeScreenRoute : Screen {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
+        val routeNavigator = LocalNavigator.currentOrThrow.findRouteNavigator()
+
         val viewModel: HomeScreenViewModel = koinInject()
         val state by viewModel.state.collectAsState()
 
@@ -56,6 +59,9 @@ class HomeScreenRoute : Screen {
         HomeScreenContent(
             topics = state.topics,
             articlesStateMap = state.feedsStates,
+            onArticleClick = { article ->
+                routeNavigator.push(WebViewRoute(article.id))
+            },
             onTopicsChooserDialogDismiss = { updatedTopics ->
                 viewModel.updateTopics(updatedTopics)
             },
@@ -70,6 +76,7 @@ fun HomeScreenContent(
     topics: List<Topics>,
     articlesStateMap: Map<Topics, ArticlesFeedState>,
     pagerState: PagerState = rememberPagerState { topics.size },
+    onArticleClick: (ArticleUIModel) -> Unit = {},
     onTopicsChooserDialogDismiss: (List<Topics>) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -78,65 +85,63 @@ fun HomeScreenContent(
     var showInterestsSelectionDialog by remember { mutableStateOf(false) }
 
     Surface(modifier = modifier) {
-        Box(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
 
-            if (showInterestsSelectionDialog) {
-                InterestsBottomSheetDialog(
-                    selectedTopics = topics,
-                    onDismiss = { updated, topics ->
-                        if (updated) {
-                            coroutineScope.launch { pagerState.animateScrollToPage(0) }
-                        }
-                        onTopicsChooserDialogDismiss(topics)
-                        showInterestsSelectionDialog = false
-                    },
-                )
-            }
+        if (showInterestsSelectionDialog) {
+            InterestsBottomSheetDialog(
+                selectedTopics = topics,
+                onDismiss = { updated, topics ->
+                    if (updated) {
+                        coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                    }
+                    onTopicsChooserDialogDismiss(topics)
+                    showInterestsSelectionDialog = false
+                },
+            )
+        }
 
-            Column(modifier = Modifier) {
+        Column(modifier = Modifier) {
 
-                InterestsBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
+            InterestsBar(onShowTopicsSelectionDialog = { showInterestsSelectionDialog = true })
 
-                InterestTabsRow(
-                    topics = topics,
-                    modifier = Modifier.padding(bottom = 8.dp),
-                    currentSelectedPageIndex = pagerState.currentPage,
-                    onTabClick = { page ->
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(page)
-                        }
-                    },
-                )
+            InterestTabsRow(
+                topics = topics,
+                modifier = Modifier.padding(bottom = 8.dp),
+                currentSelectedPageIndex = pagerState.currentPage,
+                onTabClick = { page ->
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(page)
+                    }
+                },
+            )
 
-                HorizontalPager(
-                    state = pagerState,
-                    pageSpacing = 16.dp,
-                    //TODO test the effect
+            HorizontalPager(
+                state = pagerState,
+                pageSpacing = 16.dp,
+                //TODO test the effect
 //                    beyondBoundsPageCount = 1
-                ) {
+            ) {
 
-                    when (val feedState = articlesStateMap[topics[it]]) {
-                        is ArticlesFeedState.Loading -> {
-                            LoadingShimmerArticlesList()
-                        }
+                when (val feedState = articlesStateMap[topics[it]]) {
+                    is ArticlesFeedState.Loading -> {
+                        LoadingShimmerArticlesList()
+                    }
 
-                        is ArticlesFeedState.Error -> {
-                            Text(text = "Error ${feedState.error}")
-                        }
+                    is ArticlesFeedState.Error -> {
+                        Text(text = "Error ${feedState.error}")
+                    }
 
-                        is ArticlesFeedState.Success -> {
-                            ArticlesList(
-                                articles = feedState.data,
-                                modifier = Modifier.fillMaxSize(),
-                                onBookmarkClick = { _, _ -> },
-                                onArticleClick = {}
-                            )
-                        }
+                    is ArticlesFeedState.Success -> {
+                        ArticlesList(
+                            articles = feedState.data,
+                            modifier = Modifier.fillMaxSize(),
+                            onBookmarkClick = { _, _ -> },
+                            onArticleClick = onArticleClick
+                        )
+                    }
 
-                        //TODO check null is needed
-                        null -> {
-                            println("null")
-                        }
+                    //TODO check null is needed
+                    null -> {
+                        println("null")
                     }
                 }
             }
