@@ -65,6 +65,9 @@ kotlin {
 
                 implementation(libs.logger.kermit)
                 implementation(libs.kamel.image)
+
+                implementation(libs.windowSizeClass)
+
             }
         }
 
