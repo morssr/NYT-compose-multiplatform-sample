@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
@@ -60,13 +61,20 @@ class HomeScreenRoute : Screen {
             topics = state.topics,
             articlesStateMap = state.feedsStates,
             onArticleClick = { article ->
-                routeNavigator.push(WebViewRoute(article.id))
+                navigateToArticleWeb(routeNavigator, article)
             },
             onTopicsChooserDialogDismiss = { updatedTopics ->
                 viewModel.updateTopics(updatedTopics)
             },
             pagerState = pagerState
         )
+    }
+
+    private fun navigateToArticleWeb(
+        routeNavigator: Navigator,
+        article: ArticleUIModel
+    ) {
+        routeNavigator.push(WebViewRoute(article.title, article.storyUrl))
     }
 }
 
