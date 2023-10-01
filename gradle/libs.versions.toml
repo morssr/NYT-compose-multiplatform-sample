@@ -18,6 +18,7 @@ kermit = "2.0.0-RC4"
 kamelImage = "0.7.3"
 mokoResources = "0.23.0"
 mokoMvvm = "0.16.1"
+calf = "0.2.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
@@ -86,6 +87,9 @@ logger-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
 #Image Loading
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+
+#Calf - Compose Adaptive Look & Feel
+calf-ui = { module = "com.mohamedrejeb.calf:calf-ui", version.ref = "calf" }
 
 [plugins]
 
