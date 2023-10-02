@@ -4,6 +4,9 @@
     <string name="click_me">לחץ עליי!</string>
     <string name="expand_text_more">more..</string>
 
+    <!--General-->
+    <string name="delete">Delete</string>
+
     <!--Navigation-->
     <string name="navigation_home">בית</string>
     <string name="navigation_search">חיפוש</string>
@@ -12,7 +15,7 @@
     <!--titles-->
     <string name="what_you_curious_about">תחומי העיניין שלך</string>
     <string name="edit_topics_content_description">ערוך תחומי עניין</string>
-
+    <string name="bookmarks_title">כתבות שעיניינו אותך בעבר</string>
 
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>

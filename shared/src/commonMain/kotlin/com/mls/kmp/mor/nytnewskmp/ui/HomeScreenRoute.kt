@@ -66,6 +66,9 @@ class HomeScreenRoute : Screen {
             onTopicsChooserDialogDismiss = { updatedTopics ->
                 viewModel.updateTopics(updatedTopics)
             },
+            onBookmarkClick = { id, bookmarked ->
+                viewModel.updateBookmarks(id, bookmarked)
+            },
             pagerState = pagerState
         )
     }
@@ -86,6 +89,7 @@ fun HomeScreenContent(
     pagerState: PagerState = rememberPagerState { topics.size },
     onArticleClick: (ArticleUIModel) -> Unit = {},
     onTopicsChooserDialogDismiss: (List<Topics>) -> Unit = {},
+    onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
 
@@ -142,7 +146,7 @@ fun HomeScreenContent(
                         ArticlesList(
                             articles = feedState.data,
                             modifier = Modifier.fillMaxSize(),
-                            onBookmarkClick = { _, _ -> },
+                            onBookmarkClick = onBookmarkClick,
                             onArticleClick = onArticleClick
                         )
                     }

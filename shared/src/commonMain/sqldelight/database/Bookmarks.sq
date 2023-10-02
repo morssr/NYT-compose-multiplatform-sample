@@ -1,0 +1,44 @@
+CREATE TABLE IF NOT EXISTS Bookmarks (
+    id                  TEXT NOT NULL PRIMARY KEY,
+    topic               TEXT NOT NULL,
+    subsection          TEXT NOT NULL,
+    title               TEXT NOT NULL,
+    content             TEXT NOT NULL,
+    byline              TEXT NOT NULL,
+    published_date      INTEGER NOT NULL,
+    bookmarked_date     INTEGER NOT NULL,
+    image_url           TEXT NOT NULL,
+    story_url           TEXT NOT NULL
+);
+
+getAllBookmarks:
+SELECT *
+FROM Bookmarks;
+
+getbookmarkById:
+SELECT *
+FROM Bookmarks
+WHERE id = ?;
+
+getBookmarksSteamDesc:
+SELECT *
+FROM Bookmarks
+ORDER BY bookmarked_date DESC;
+
+insertOrReplaceBookmark:
+INSERT OR REPLACE INTO Bookmarks (
+    id,
+    topic,
+    subsection,
+    title,
+    content,
+    byline,
+    published_date,
+    bookmarked_date,
+    image_url,
+    story_url
+) VALUES ?;
+
+deleteBookmarkById:
+DELETE FROM Bookmarks
+WHERE id = ?;

@@ -4,12 +4,15 @@ import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesRepository
-import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
+import com.mls.kmp.mor.nytnewskmp.data.bookmarks.BookmarksRepository
+import com.mls.kmp.mor.nytnewskmp.data.bookmarks.common.toBookmarkModel
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
+import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
-import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUIList
+import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUI
 import com.mls.kmp.mor.nytnewskmp.utils.Response
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
@@ -24,13 +27,19 @@ private const val TAG = "HomeScreenViewModel"
 
 class HomeScreenViewModel(
     private val repository: ArticlesRepository,
+    private val bookmarksRepository: BookmarksRepository,
     logger: Logger
 ) : StateScreenModel<HomeScreenState>(HomeScreenState()) {
 
     private val log = logger.withTag(TAG)
 
     init {
-        log.v { "init()" }
+        launchTopicsUpdatesHotFlow()
+        launchArticlesAndBookmarksUpdatesHotFlow()
+    }
+
+    private fun launchTopicsUpdatesHotFlow() {
+        log.d { "launchTopicsUpdatesFlow() called" }
         repository.getMyTopicsListStream()
             .onEach { topics -> mutableState.update { it.copy(topics = topics) } }
             .stateIn(
@@ -38,8 +47,10 @@ class HomeScreenViewModel(
                 started = SharingStarted.Lazily,
                 initialValue = defaultTopics
             ).launchIn(coroutineScope)
+    }
 
-
+    private fun launchArticlesAndBookmarksUpdatesHotFlow() {
+        log.d { "launchArticlesAndBookmarksUpdatesFlow() called" }
         mutableState
             .map { it.currentTopic }
             .distinctUntilChanged()
@@ -47,20 +58,24 @@ class HomeScreenViewModel(
             .flatMapLatest { topic ->
                 repository.getArticlesStreamIfRequired(topic = topic)
             }
-            .stateIn(
-                coroutineScope,
-                started = SharingStarted.Lazily,
-                initialValue = Response.Loading
-            )
-            .map { response ->
+            .combine(bookmarksRepository.getBookmarksStream()) { response, bookmarks ->
+
                 when (response) {
                     is Response.Loading -> ArticlesFeedState.Loading
                     is Response.Failure -> ArticlesFeedState.Error(
                         response.error,
-                        response.fallbackData?.toArticleUIList() ?: emptyList()
+                        response.fallbackData?.map { article ->
+                            article.toArticleUI(bookmarked = bookmarks.any { it.id == it.id })
+                        } ?: emptyList()
                     )
 
-                    is Response.Success -> ArticlesFeedState.Success(response.data.toArticleUIList())
+                    is Response.Success -> {
+                        ArticlesFeedState.Success(
+                            response.data.map { article ->
+                                article.toArticleUI(bookmarked = bookmarks.any { it.id == article.id })
+                            }
+                        )
+                    }
                 }
             }
             .onEach { state ->
@@ -72,6 +87,11 @@ class HomeScreenViewModel(
                     )
                 }
             }
+            .stateIn(
+                coroutineScope,
+                started = SharingStarted.Lazily,
+                initialValue = Response.Loading
+            )
             .launchIn(coroutineScope)
     }
 
@@ -87,6 +107,17 @@ class HomeScreenViewModel(
         }
     }
 
+    fun updateBookmarks(articleId: String, bookmarked: Boolean) {
+        log.d { "onBookmarkClick() called with: article = $articleId" }
+        coroutineScope.launch {
+            val articleModel = repository.getArticleById(articleId)
+            if (bookmarked) {
+                bookmarksRepository.deleteBookmarkById(articleModel.id)
+            } else {
+                bookmarksRepository.saveBookmarks(listOf(articleModel.toBookmarkModel(state.value.currentTopic)))
+            }
+        }
+    }
 }
 
 data class HomeScreenState(
