@@ -7,6 +7,7 @@ import co.touchlab.kermit.platformLogWriter
 import com.mls.kmp.mor.nytnewskmp.core.api.ApiClient
 import com.mls.kmp.mor.nytnewskmp.data.aricles.articlesModule
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.bookmarksModule
+import com.mls.kmp.mor.nytnewskmp.data.search.searchModule
 import com.mls.kmp.mor.nytnewskmp.database.AppDatabase
 import com.mls.kmp.mor.nytnewskmp.ui.uiModule
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +34,6 @@ val mainModule = module {
 }
 
 val appModule = module {
-    includes(mainModule, platformModule, uiModule, articlesModule, bookmarksModule)
+    includes(mainModule, platformModule, uiModule, articlesModule, bookmarksModule, searchModule)
 }
 expect val platformModule: Module

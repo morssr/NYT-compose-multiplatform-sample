@@ -5,7 +5,10 @@
     <string name="expand_text_more">more..</string>
 
     <!--General-->
-    <string name="delete">Delete</string>
+    <string name="delete">מחק</string>
+    <string name="clear">נקה</string>
+    <string name="back">חזור אחורה</string>
+    <string name="search">חפש</string>
 
     <!--Navigation-->
     <string name="navigation_home">בית</string>
@@ -13,9 +16,16 @@
     <string name="navigation_bookmarks">מועדפים</string>
 
     <!--titles-->
+    <string name="search_placeholder">מה מעניין אותך?</string>
     <string name="what_you_curious_about">תחומי העיניין שלך</string>
     <string name="edit_topics_content_description">ערוך תחומי עניין</string>
     <string name="bookmarks_title">כתבות שעיניינו אותך בעבר</string>
+    <string name="last_search">חיפוש אחרון</string>
+    <string name="recommended_for_you">ממולצים עבורך</string>
+    <string name="search_for_something_message">חפש משהו…</string>
+    <string name="bookmarks_are_empty">אין מועדפים</string>
+    <string name="your_topics">ערוך את תחומי העיניין שלך</string>
+    <string name="interests">תחומי עניין</string>
 
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>

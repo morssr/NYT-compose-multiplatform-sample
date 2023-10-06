@@ -6,6 +6,9 @@
 
     <!--General-->
     <string name="delete">Delete</string>
+    <string name="clear">Clear</string>
+    <string name="back">Back</string>
+    <string name="search">Search</string>
 
     <!--Navigation-->
     <string name="navigation_home">Home</string>
@@ -13,9 +16,19 @@
     <string name="navigation_bookmarks">Bookmarks</string>
 
     <!--titles-->
+    <string name="search_placeholder">What\'s In Your Mind?</string>
     <string name="what_you_curious_about">What You Curious About?</string>
     <string name="your_topics">Edit Your Topics</string>
     <string name="bookmarks_title">Stories that made you interested</string>
+    <string name="last_search">Last Search</string>
+    <string name="recommended_for_you">Recommended For You</string>
+    <string name="search_for_something_message">Search for something…</string>
+    <string name="bookmarks_are_empty">Bookmarks are empty</string>
+    <string name="your_topics">Edit Your Topics</string>
+    <string name="newest">Newest</string>
+    <string name="reports">Reports</string>
+    <string name="interests">Interests</string>
+
 
     <!--content description-->
     <string name="add_article_to_bookmarks">add article to bookmarks</string>

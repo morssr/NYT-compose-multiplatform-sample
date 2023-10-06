@@ -1,0 +1,42 @@
+CREATE TABLE IF NOT EXISTS Search (
+    id                  TEXT NOT NULL PRIMARY KEY,
+    title               TEXT NOT NULL,
+    content             TEXT NOT NULL,
+    lead_paragraph      TEXT NOT NULL,
+    subsection          TEXT,
+    byline              TEXT NOT NULL,
+    published_date      INTEGER NOT NULL,
+    image_url           TEXT NOT NULL,
+    story_url           TEXT NOT NULL
+);
+
+getAllSearches:
+SELECT *
+FROM Search;
+
+getAllSearchesDesc:
+SELECT *
+FROM Search
+ORDER BY published_date DESC;
+
+getSearchById:
+SELECT *
+FROM Search
+WHERE id = ?;
+
+insertOrReplaceSearch:
+INSERT OR REPLACE INTO Search (
+    id,
+    title,
+    content,
+    lead_paragraph,
+    subsection,
+    byline,
+    published_date,
+    image_url,
+    story_url
+) VALUES ?;
+
+clearAllSearches:
+DELETE FROM Search;
+

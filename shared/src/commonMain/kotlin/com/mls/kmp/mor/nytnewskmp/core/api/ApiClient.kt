@@ -24,6 +24,7 @@ class ApiClient(
             install(ContentNegotiation) {
                 json(Json {
                     ignoreUnknownKeys = true
+                    coerceInputValues = true
                 })
             }
 
