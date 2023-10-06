@@ -20,6 +20,7 @@ mokoResources = "0.23.0"
 mokoMvvm = "0.16.1"
 calf = "0.2.0"
 windowSizeClass = "0.3.0"
+pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
@@ -85,6 +86,10 @@ moko-mvvm-flow-compose = { module = "dev.icerock.moko:mvvm-flow-compose", versio
 
 # Logging
 logger-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+
+# Paging
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon" }
+paging-testing = { module = "app.cash.paging:paging-testing", version.ref = "pagingComposeCommon" }
 
 #Image Loading
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }

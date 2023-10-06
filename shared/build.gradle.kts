@@ -68,6 +68,7 @@ kotlin {
 
                 implementation(libs.windowSizeClass)
 
+                implementation(libs.paging.compose.common)
             }
         }
 
@@ -76,7 +77,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.ktor.mock)
                 implementation(libs.koin.test)
-
+                implementation(libs.paging.testing)
             }
         }
 
