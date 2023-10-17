@@ -7,6 +7,7 @@ import co.touchlab.kermit.platformLogWriter
 import com.mls.kmp.mor.nytnewskmp.core.api.ApiClient
 import com.mls.kmp.mor.nytnewskmp.data.aricles.articlesModule
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.bookmarksModule
+import com.mls.kmp.mor.nytnewskmp.data.popular.popularsModule
 import com.mls.kmp.mor.nytnewskmp.data.search.searchModule
 import com.mls.kmp.mor.nytnewskmp.database.AppDatabase
 import com.mls.kmp.mor.nytnewskmp.ui.uiModule
@@ -34,6 +35,14 @@ val mainModule = module {
 }
 
 val appModule = module {
-    includes(mainModule, platformModule, uiModule, articlesModule, bookmarksModule, searchModule)
+    includes(
+        mainModule,
+        platformModule,
+        uiModule,
+        articlesModule,
+        bookmarksModule,
+        searchModule,
+        popularsModule
+    )
 }
 expect val platformModule: Module

@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS Populars(
+    id                  TEXT NOT NULL PRIMARY KEY,
+    category            TEXT NOT NULL,
+    title               TEXT NOT NULL,
+    content             TEXT NOT NULL,
+    byline              TEXT NOT NULL,
+    section             TEXT NOT NULL,
+    published_date      INTEGER NOT NULL,
+    image_url           TEXT NOT NULL,
+    story_url           TEXT NOT NULL
+);
+
+getAllPopulars:
+SELECT *
+FROM Populars
+ORDER BY published_date DESC;
+
+insertOrReplacePopulars:
+INSERT OR REPLACE INTO Populars(
+    id,
+    category,
+    title,
+    content,
+    byline,
+    section,
+    published_date,
+    image_url,
+    story_url
+) VALUES ?;
+
+deleteAllPopulars:
+DELETE FROM Populars;
