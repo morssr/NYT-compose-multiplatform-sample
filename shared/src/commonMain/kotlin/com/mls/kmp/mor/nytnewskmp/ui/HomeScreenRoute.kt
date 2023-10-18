@@ -4,14 +4,20 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -28,17 +35,19 @@ import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
+import com.mls.kmp.mor.nytnewskmp.ui.common.CustomCollapsingToolbarContainer
 import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBottomSheetDialog
+import com.mls.kmp.mor.nytnewskmp.ui.populars.PopularBarComponent
 import com.mls.kmp.mor.nytnewskmp.utils.findRouteNavigator
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 class HomeScreenRoute : Screen {
 
-    @OptIn(ExperimentalFoundationApi::class)
+    @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val routeNavigator = LocalNavigator.currentOrThrow.findRouteNavigator()
@@ -57,27 +66,87 @@ class HomeScreenRoute : Screen {
             }
         }
 
-        HomeScreenContent(
-            topics = state.topics,
-            articlesStateMap = state.feedsStates,
-            onArticleClick = { article ->
-                navigateToArticleWeb(routeNavigator, article)
-            },
-            onTopicsChooserDialogDismiss = { updatedTopics ->
-                viewModel.updateTopics(updatedTopics)
-            },
-            onBookmarkClick = { id, bookmarked ->
-                viewModel.updateBookmarks(id, bookmarked)
-            },
-            pagerState = pagerState
-        )
+        val appBarState = rememberTopAppBarState()
+
+        val scrollBehavior =
+            TopAppBarDefaults.exitUntilCollapsedScrollBehavior(appBarState)
+
+        // calculate the height of the collapsing toolbar based on the screen height
+        val collapsingToolbarHeight by remember {
+            derivedStateOf { 250.dp }
+        }
+
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                CustomCollapsingToolbarContainer(
+                    initialHeight = collapsingToolbarHeight,
+                    scrollBehavior = scrollBehavior,
+                    alphaAnimation = true,
+                )
+                {
+                    // returns true when the toolbar is fully collapsed
+                    val appBarFullyCollapsed by remember {
+                        derivedStateOf { appBarState.collapsedFraction > 0.99f }
+                    }
+
+                    Column(
+                        modifier = Modifier.then(
+                            // Hide the toolbar when the collapsing toolbar is fully collapsed.
+                            // Workaround to fix the issue of consuming the touch events when collapsed.
+                            if (appBarFullyCollapsed) {
+                                Modifier.requiredHeight(0.dp)
+                            } else {
+                                Modifier.requiredHeight(collapsingToolbarHeight)
+                            }
+                        )
+                    ) {
+
+//                        HomeTopAppBar(
+//                            showMainMenu = dialogSelector == DialogSelector.MainMenuDropdown,
+//                            onMenuClick = { onShowDialogClick(DialogSelector.MainMenuDropdown) },
+//                            onLogoClick = { onShowDialogClick(DialogSelector.AboutUs) },
+//                            onDismissMenu = { onDismissDialogClick() },
+//                            onSettingClick = { onShowDialogClick(DialogSelector.Settings) },
+//                            onAboutUsClick = { onShowDialogClick(DialogSelector.AboutUs) },
+//                            onContactUsClick = { onShowDialogClick(DialogSelector.ContactUs) },
+//                        )
+
+                        PopularBarComponent(
+                            modifier = Modifier.weight(1f),
+                            popularsFeedState = state.popularFeedState,
+                            onPopularStoryClick = {
+                                navigateToArticleWeb(routeNavigator, it.title, it.storyUrl)
+                            },
+                        )
+                    }
+                }
+            }
+        ) {
+            HomeScreenContent(
+                modifier = Modifier.padding(top = it.calculateTopPadding()),
+                topics = state.topics,
+                articlesStateMap = state.feedsStates,
+                onArticleClick = { article ->
+                    navigateToArticleWeb(routeNavigator, article.title, article.storyUrl)
+                },
+                onTopicsChooserDialogDismiss = { updatedTopics ->
+                    viewModel.updateTopics(updatedTopics)
+                },
+                onBookmarkClick = { id, bookmarked ->
+                    viewModel.updateBookmarks(id, bookmarked)
+                },
+                pagerState = pagerState
+            )
+        }
     }
 
     private fun navigateToArticleWeb(
         routeNavigator: Navigator,
-        article: ArticleUIModel
+        title: String,
+        articleUrl: String
     ) {
-        routeNavigator.push(WebViewRoute(article.title, article.storyUrl))
+        routeNavigator.push(WebViewRoute(title, articleUrl))
     }
 }
 

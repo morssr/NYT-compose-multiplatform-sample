@@ -8,8 +8,11 @@ import com.mls.kmp.mor.nytnewskmp.data.bookmarks.BookmarksRepository
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.common.toBookmarkModel
 import com.mls.kmp.mor.nytnewskmp.data.common.Topics
 import com.mls.kmp.mor.nytnewskmp.data.common.defaultTopics
+import com.mls.kmp.mor.nytnewskmp.data.popular.common.PopularRepository
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUI
+import com.mls.kmp.mor.nytnewskmp.ui.populars.PopularUiModel
+import com.mls.kmp.mor.nytnewskmp.ui.populars.toPopularUiList
 import com.mls.kmp.mor.nytnewskmp.utils.Response
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -28,6 +31,7 @@ private const val TAG = "HomeScreenViewModel"
 class HomeScreenViewModel(
     private val repository: ArticlesRepository,
     private val bookmarksRepository: BookmarksRepository,
+    private val popularsRepository: PopularRepository,
     logger: Logger
 ) : StateScreenModel<HomeScreenState>(HomeScreenState()) {
 
@@ -36,6 +40,7 @@ class HomeScreenViewModel(
     init {
         launchTopicsUpdatesHotFlow()
         launchArticlesAndBookmarksUpdatesHotFlow()
+        launchPopularsUpdatesHotFlow()
     }
 
     private fun launchTopicsUpdatesHotFlow() {
@@ -95,6 +100,34 @@ class HomeScreenViewModel(
             .launchIn(coroutineScope)
     }
 
+    private fun launchPopularsUpdatesHotFlow() {
+        log.d { "launchPopularsUpdatesFlow() called" }
+        popularsRepository.getPopularsByTypeStream()
+            .onEach { populars ->
+                mutableState.update {
+                    when (populars) {
+                        is Response.Loading -> it.copy(popularFeedState = PopularFeedState.Loading)
+                        is Response.Failure -> it.copy(
+                            popularFeedState = PopularFeedState.Error(
+                                populars.error,
+                                populars.fallbackData?.toPopularUiList() ?: emptyList()
+                            )
+                        )
+                        is Response.Success -> it.copy(
+                            popularFeedState = PopularFeedState.Success(
+                                populars.data.toPopularUiList()
+                            )
+                        )
+                    }
+                }
+            }
+            .stateIn(
+                scope = coroutineScope,
+                started = SharingStarted.Lazily,
+                initialValue = Response.Loading
+            ).launchIn(coroutineScope)
+    }
+
     fun refreshCurrentTopic(topic: Topics) {
         log.d { "refreshCurrentTopic() called with: topic = $topic" }
         mutableState.update { it.copy(currentTopic = topic) }
@@ -124,13 +157,23 @@ data class HomeScreenState(
     val currentTopic: Topics = Topics.HOME,
     val topics: List<Topics> = listOf(Topics.HOME),
     val feedsStates: Map<Topics, ArticlesFeedState> = mapOf(currentTopic to ArticlesFeedState.Loading),
+    val popularFeedState: PopularFeedState = PopularFeedState.Loading,
     val dialogSelector: DialogSelector = DialogSelector.None
 )
 
 sealed class ArticlesFeedState {
     object Loading : ArticlesFeedState()
-    data class Error(val error: Exception, val fallbackData: List<ArticleUIModel>) : ArticlesFeedState()
+    data class Error(val error: Exception, val fallbackData: List<ArticleUIModel>) :
+        ArticlesFeedState()
+
     data class Success(val data: List<ArticleUIModel>) : ArticlesFeedState()
+}
+
+sealed class PopularFeedState {
+    object Loading : PopularFeedState()
+    data class Error(val error: Exception, val fallbackData: List<PopularUiModel>) :
+        PopularFeedState()
+    data class Success(val data: List<PopularUiModel>) : PopularFeedState()
 }
 
 sealed class DialogSelector {

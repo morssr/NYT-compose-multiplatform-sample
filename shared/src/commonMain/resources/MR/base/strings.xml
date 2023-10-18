@@ -34,6 +34,7 @@
     <string name="add_article_to_bookmarks">add article to bookmarks</string>
     <string name="remove_article_from_bookmarks">remove article from bookmarks</string>
     <string name="edit_topics_content_description">Edit topics</string>
+    <string name="popular_article_image_content_description">popular article image</string>
 
     <!--Topics-->
     <string name="home">Home</string>

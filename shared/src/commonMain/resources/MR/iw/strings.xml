@@ -30,6 +30,7 @@
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>
     <string name="remove_article_from_bookmarks">הסר מאמר מהמועדפים</string>
+    <string name="popular_article_image_content_description">תמונה של המאמר</string>
 
     <!--Topics-->
     <string name="home">בית</string>

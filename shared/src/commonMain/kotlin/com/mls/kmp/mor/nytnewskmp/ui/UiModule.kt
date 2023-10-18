@@ -9,6 +9,7 @@ val uiModule = module {
         HomeScreenViewModel(
             repository = get(),
             bookmarksRepository = get(),
+            popularsRepository = get(),
             logger = get(),
         )
     }

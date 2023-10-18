@@ -33,7 +33,7 @@ class PopularApiImpl(
                         period = period
                     )
                 ).body()
-            log.v { "getPopularArticles() response: $response" }
+            log.v { "getPopularArticles() success: response size: ${response.num_results}" }
             ApiResponse.Success(response)
         } catch (e: Exception) {
             log.e { "getPopularArticles() error: ${e.message}" }
