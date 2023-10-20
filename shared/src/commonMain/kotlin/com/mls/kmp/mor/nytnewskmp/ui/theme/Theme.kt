@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
 
 private val LightColorScheme = lightColorScheme(
@@ -71,13 +72,27 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
 )
 
+
+val LightCustomThemeAttributes = CustomThemeAttributes(
+    secondaryBackground = custom_theme_light_secondaryBackground,
+)
+
+val DarkCustomThemeAttributes = CustomThemeAttributes(
+    secondaryBackground = custom_theme_dark_secondaryBackground,
+)
+
 @Composable
 fun MyAppTheme(
     darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
-        content = content
-    )
+
+    CompositionLocalProvider(
+        LocalCustomThemeAttributes provides if (darkTheme) DarkCustomThemeAttributes else LightCustomThemeAttributes
+    ) {
+        MaterialTheme(
+            colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
+            content = content
+        )
+    }
 }

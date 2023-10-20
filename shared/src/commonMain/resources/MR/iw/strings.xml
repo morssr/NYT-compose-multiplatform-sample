@@ -27,10 +27,28 @@
     <string name="your_topics">ערוך את תחומי העיניין שלך</string>
     <string name="interests">תחומי עניין</string>
 
+    // Settings
+    <string name="settings">הגדרות</string>
+    <string name="theme_modes">ערכות נושא</string>
+    <string name="dynamic_colors">צבעים דינאמים</string>
+    <string name="about">אודות</string>
+    <string name="about_us">אודותנו</string>
+    <string name="contact_us">צור קשר</string>
+    <string name="contact_information">פרטי התקשרות</string>
+    <string name="email">אימייל</string>
+    <string name="app_information_location">ישראל, תל-אביב</string>
+    <string name="send_email_using">שלח אימייל באמצעות..</string>
+
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>
     <string name="remove_article_from_bookmarks">הסר מאמר מהמועדפים</string>
     <string name="popular_article_image_content_description">תמונה של המאמר</string>
+
+    <string name="app_toolbar_logo_and_about_content_description">לוגו, אודותינו</string>
+    <string name="app_main_menu_content_description">תפריט מרכזי</string>
+    <string name="app_main_menu_settings_content_description">הגדרות</string>
+    <string name="app_main_menu_about_us_content_description">אודותינו</string>
+    <string name="app_main_menu_contact_us_content_description">צור קשר</string>
 
     <!--Topics-->
     <string name="home">בית</string>

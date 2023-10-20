@@ -102,14 +102,21 @@ fun PopularBarComponent(
                 }
 
                 is PopularFeedState.Error -> {
-                    Text(
-                        text = popularsFeedState.error.toString(),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier
-                            .padding(top = 4.dp)
-                            .padding(horizontal = 16.dp)
-                    )
+
+                    if (popularsFeedState.fallbackData != null) {
+                        CustomHorizontalPager(
+                            rememberPagerState { popularsFeedState.fallbackData.size },
+                            PageSize.Fixed(popularItemWidth)
+                        ) { pageIndex ->
+                            PopularListItem(
+                                modifier = Modifier.fillMaxSize(),
+                                popular = popularsFeedState.fallbackData[pageIndex],
+                                onItemClick = onPopularStoryClick
+                            )
+                        }
+                    } else {
+                        PopularsErrorComponent()
+                    }
                 }
             }
         }
@@ -160,6 +167,21 @@ fun ShimmerPopularItem(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.fillMaxSize().shimmerBackground())
+}
+
+@Composable
+private fun PopularsErrorComponent() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = "Something went wrong!",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .padding(horizontal = 16.dp)
+                .align(Alignment.Center)
+        )
+    }
 }
 
 private fun calculateDynamicPopularItemWidth(containerWidth: Dp): Dp = when {

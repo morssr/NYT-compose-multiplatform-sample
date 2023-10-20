@@ -37,6 +37,7 @@ import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.common.CustomCollapsingToolbarContainer
 import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
+import com.mls.kmp.mor.nytnewskmp.ui.home.HomeTopAppBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBottomSheetDialog
@@ -44,6 +45,9 @@ import com.mls.kmp.mor.nytnewskmp.ui.populars.PopularBarComponent
 import com.mls.kmp.mor.nytnewskmp.utils.findRouteNavigator
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+
+
+private const val COLLAPSING_TOOLBAR_HEIGHT = 280
 
 class HomeScreenRoute : Screen {
 
@@ -73,7 +77,7 @@ class HomeScreenRoute : Screen {
 
         // calculate the height of the collapsing toolbar based on the screen height
         val collapsingToolbarHeight by remember {
-            derivedStateOf { 250.dp }
+            derivedStateOf { COLLAPSING_TOOLBAR_HEIGHT.dp }
         }
 
         Scaffold(
@@ -102,15 +106,15 @@ class HomeScreenRoute : Screen {
                         )
                     ) {
 
-//                        HomeTopAppBar(
-//                            showMainMenu = dialogSelector == DialogSelector.MainMenuDropdown,
-//                            onMenuClick = { onShowDialogClick(DialogSelector.MainMenuDropdown) },
-//                            onLogoClick = { onShowDialogClick(DialogSelector.AboutUs) },
-//                            onDismissMenu = { onDismissDialogClick() },
-//                            onSettingClick = { onShowDialogClick(DialogSelector.Settings) },
-//                            onAboutUsClick = { onShowDialogClick(DialogSelector.AboutUs) },
-//                            onContactUsClick = { onShowDialogClick(DialogSelector.ContactUs) },
-//                        )
+                        HomeTopAppBar(
+                            showMainMenu = state.dialogSelector == DialogSelector.MainMenuDropdown,
+                            onMenuClick = { viewModel.showDialog(DialogSelector.MainMenuDropdown) },
+                            onLogoClick = { viewModel.showDialog(DialogSelector.AboutUs) },
+                            onDismissMenu = { viewModel.dismissDialog() },
+                            onSettingClick = { viewModel.showDialog(DialogSelector.Settings) },
+                            onAboutUsClick = { viewModel.showDialog(DialogSelector.AboutUs) },
+                            onContactUsClick = { viewModel.showDialog(DialogSelector.ContactUs) },
+                        )
 
                         PopularBarComponent(
                             modifier = Modifier.weight(1f),

@@ -151,6 +151,16 @@ class HomeScreenViewModel(
             }
         }
     }
+
+    fun showDialog(dialogSelector: DialogSelector) {
+        log.d { "showDialog() called with: dialogSelector = $dialogSelector" }
+        mutableState.update { it.copy(dialogSelector = dialogSelector) }
+    }
+
+    fun dismissDialog() {
+        log.d { "dismissDialog() called" }
+        mutableState.update { it.copy(dialogSelector = DialogSelector.None) }
+    }
 }
 
 data class HomeScreenState(
@@ -171,7 +181,7 @@ sealed class ArticlesFeedState {
 
 sealed class PopularFeedState {
     object Loading : PopularFeedState()
-    data class Error(val error: Exception, val fallbackData: List<PopularUiModel>) :
+    data class Error(val error: Exception, val fallbackData: List<PopularUiModel>?) :
         PopularFeedState()
     data class Success(val data: List<PopularUiModel>) : PopularFeedState()
 }
