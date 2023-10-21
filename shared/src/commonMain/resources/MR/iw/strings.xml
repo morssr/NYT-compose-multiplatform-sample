@@ -9,6 +9,16 @@
     <string name="clear">נקה</string>
     <string name="back">חזור אחורה</string>
     <string name="search">חפש</string>
+    <string name="retry">נסה שנית</string>
+    <string name="loading">בטעינה</string>
+    <string name="follow_system">מערכת</string>
+    <string name="light">בהיר</string>
+    <string name="dark">כהה</string>
+    <string name="done">אישור</string>
+    <string name="location">מיקום</string>
+    <string name="interests">תחומי עניין</string>
+    <string name="newest">פרסומים</string>
+    <string name="reports">חדשים</string>
 
     <!--Navigation-->
     <string name="navigation_home">בית</string>

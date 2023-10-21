@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -42,9 +43,11 @@ import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBottomSheetDialog
 import com.mls.kmp.mor.nytnewskmp.ui.populars.PopularBarComponent
+import com.mls.kmp.mor.nytnewskmp.ui.settings.DialogSelector
+import com.mls.kmp.mor.nytnewskmp.ui.settings.SettingsDialogsPresenter
+import com.mls.kmp.mor.nytnewskmp.ui.settings.SettingsViewModel
 import com.mls.kmp.mor.nytnewskmp.utils.findRouteNavigator
 import kotlinx.coroutines.launch
-import org.koin.compose.koinInject
 
 
 private const val COLLAPSING_TOOLBAR_HEIGHT = 280
@@ -56,8 +59,11 @@ class HomeScreenRoute : Screen {
     override fun Content() {
         val routeNavigator = LocalNavigator.currentOrThrow.findRouteNavigator()
 
-        val viewModel: HomeScreenViewModel = koinInject()
+        val viewModel = getScreenModel<HomeScreenViewModel>()
         val state by viewModel.state.collectAsState()
+
+        val settingsViewModel = getScreenModel<SettingsViewModel>()
+        val settingsState by settingsViewModel.state.collectAsState()
 
         val pagerState = rememberPagerState { state.topics.size }
 
@@ -107,13 +113,13 @@ class HomeScreenRoute : Screen {
                     ) {
 
                         HomeTopAppBar(
-                            showMainMenu = state.dialogSelector == DialogSelector.MainMenuDropdown,
-                            onMenuClick = { viewModel.showDialog(DialogSelector.MainMenuDropdown) },
-                            onLogoClick = { viewModel.showDialog(DialogSelector.AboutUs) },
-                            onDismissMenu = { viewModel.dismissDialog() },
-                            onSettingClick = { viewModel.showDialog(DialogSelector.Settings) },
-                            onAboutUsClick = { viewModel.showDialog(DialogSelector.AboutUs) },
-                            onContactUsClick = { viewModel.showDialog(DialogSelector.ContactUs) },
+                            showMainMenu = settingsState.dialogSelector == DialogSelector.MainMenuDropdown,
+                            onMenuClick = { settingsViewModel.showDialog(DialogSelector.MainMenuDropdown) },
+                            onLogoClick = { settingsViewModel.showDialog(DialogSelector.AboutUs) },
+                            onDismissMenu = { settingsViewModel.dismissDialog() },
+                            onSettingClick = { settingsViewModel.showDialog(DialogSelector.Settings) },
+                            onAboutUsClick = { settingsViewModel.showDialog(DialogSelector.AboutUs) },
+                            onContactUsClick = { settingsViewModel.showDialog(DialogSelector.ContactUs) },
                         )
 
                         PopularBarComponent(
@@ -126,9 +132,17 @@ class HomeScreenRoute : Screen {
                     }
                 }
             }
-        ) {
+        ) { paddingValues ->
+
+            SettingsDialogsPresenter(
+                state = settingsState,
+                onShowDialogClick = { selector -> settingsViewModel.showDialog(selector) },
+                onDismiss = { settingsViewModel.dismissDialog() },
+                onThemeChanged = { settingsViewModel.onThemeChanged(it) },
+            )
+
             HomeScreenContent(
-                modifier = Modifier.padding(top = it.calculateTopPadding()),
+                modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
                 topics = state.topics,
                 articlesStateMap = state.feedsStates,
                 onArticleClick = { article ->

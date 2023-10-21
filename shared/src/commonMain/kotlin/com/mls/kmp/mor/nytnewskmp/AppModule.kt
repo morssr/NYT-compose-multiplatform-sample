@@ -9,6 +9,7 @@ import com.mls.kmp.mor.nytnewskmp.data.aricles.articlesModule
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.bookmarksModule
 import com.mls.kmp.mor.nytnewskmp.data.popular.popularsModule
 import com.mls.kmp.mor.nytnewskmp.data.search.searchModule
+import com.mls.kmp.mor.nytnewskmp.data.settings.settingsModule
 import com.mls.kmp.mor.nytnewskmp.database.AppDatabase
 import com.mls.kmp.mor.nytnewskmp.ui.uiModule
 import kotlinx.coroutines.CoroutineScope
@@ -42,7 +43,8 @@ val appModule = module {
         articlesModule,
         bookmarksModule,
         searchModule,
-        popularsModule
+        popularsModule,
+        settingsModule
     )
 }
 expect val platformModule: Module

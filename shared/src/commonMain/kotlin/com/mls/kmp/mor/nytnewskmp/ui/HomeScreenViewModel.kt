@@ -151,16 +151,6 @@ class HomeScreenViewModel(
             }
         }
     }
-
-    fun showDialog(dialogSelector: DialogSelector) {
-        log.d { "showDialog() called with: dialogSelector = $dialogSelector" }
-        mutableState.update { it.copy(dialogSelector = dialogSelector) }
-    }
-
-    fun dismissDialog() {
-        log.d { "dismissDialog() called" }
-        mutableState.update { it.copy(dialogSelector = DialogSelector.None) }
-    }
 }
 
 data class HomeScreenState(
@@ -168,7 +158,6 @@ data class HomeScreenState(
     val topics: List<Topics> = listOf(Topics.HOME),
     val feedsStates: Map<Topics, ArticlesFeedState> = mapOf(currentTopic to ArticlesFeedState.Loading),
     val popularFeedState: PopularFeedState = PopularFeedState.Loading,
-    val dialogSelector: DialogSelector = DialogSelector.None
 )
 
 sealed class ArticlesFeedState {
@@ -186,12 +175,5 @@ sealed class PopularFeedState {
     data class Success(val data: List<PopularUiModel>) : PopularFeedState()
 }
 
-sealed class DialogSelector {
-    object MainMenuDropdown : DialogSelector()
-    object Settings : DialogSelector()
-    object AboutUs : DialogSelector()
-    object ContactUs : DialogSelector()
-    object EmailChooser : DialogSelector()
-    object None : DialogSelector()
-}
+
 

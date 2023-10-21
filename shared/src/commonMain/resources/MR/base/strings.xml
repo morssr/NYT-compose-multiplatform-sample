@@ -9,6 +9,14 @@
     <string name="clear">Clear</string>
     <string name="back">Back</string>
     <string name="search">Search</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading</string>
+    <string name="follow_system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="done">Done</string>
+    <string name="location">Location</string>
+    <string name="interests">Interests</string>
 
     <!--Navigation-->
     <string name="navigation_home">Home</string>
