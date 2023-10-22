@@ -60,6 +60,14 @@
     <string name="app_main_menu_about_us_content_description">אודותינו</string>
     <string name="app_main_menu_contact_us_content_description">צור קשר</string>
 
+    //Disclaimer
+    <string name="app_disclaimer">הערה חשובה: אפליקציה זו מסירה במפורש כל אחריות לתוכן החדשותי שהיא מציגה. תפקידו העיקרי הוא לשמש כאפליקציה לדוגמה להמחשה, המדגישה את היישום האפקטיבי של Jetpack Compose ונהלי פיתוח מומלצים של אנדרואיד. הכוונה הבלעדית של האפליקציה היא למטרות הדגמה, ומומלץ מאוד לא להשתמש בה למקרי שימוש אחרים.</string>
+    <string name="go_to_new_york_times_website">עבור לאתר הניו יורק טיימס</string>
+    <string name="NYT_credits">קרדיטים: כל תוכן החדשות ב-NYT מגיע מהמגזין המכובד "ניו יורק טיימס".</string>
+    <string name="welcome_greeting">ברוכים הבאים ל - NYT אפליקצייה לדוגמא</string>
+    <string name="dont_show_again">אל תראה שוב</string>
+    <string name="i_understand">אני מבין</string>
+
     <!--Topics-->
     <string name="home">בית</string>
     <string name="politics">פוליטיקה</string>

@@ -62,6 +62,15 @@
     <string name="app_main_menu_about_us_content_description">about us</string>
     <string name="app_main_menu_contact_us_content_description">contact us</string>
 
+    //Disclaimer
+    <string name="app_disclaimer">Important Note: This application explicitly disclaims any responsibility for the news content it displays. Its primary function is to serve as an illustrative sample app, highlighting the effective implementation of Jetpack Compose and recommended Android development practices. The app\'s sole intent is for demonstration purposes, and it is strongly advised not to utilize it for any other use cases.</string>
+    <string name="go_to_new_york_times_website">Go to New York Times Website</string>
+    <string name="NYT_credits">Credits: All news content in NYT comes from the respected New York Times magazine.</string>
+    <string name="welcome_greeting">Welcome to NYT News Sample App</string>
+    <string name="dont_show_again">Don\'t show this again</string>
+    <string name="i_understand">I understand</string>
+    <string name="nyt_website_url" translatable="false">https://www.nytimes.com/</string>
+
     <!--Topics-->
     <string name="home">Home</string>
     <string name="politics">Politics</string>

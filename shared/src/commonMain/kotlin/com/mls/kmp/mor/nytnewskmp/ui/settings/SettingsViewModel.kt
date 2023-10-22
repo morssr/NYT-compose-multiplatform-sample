@@ -40,6 +40,11 @@ class SettingsViewModel(
         }
     }
 
+    fun dismissDisclaimer() {
+        log.d { "dismissDisclaimer(): called" }
+        mutableState.update { it.copy(showDisclaimer = false) }
+    }
+
     fun setShowDisclaimer(show: Boolean) {
         log.d { "onShowDisclaimerChanged(): called with show: $show" }
         coroutineScope.launch {

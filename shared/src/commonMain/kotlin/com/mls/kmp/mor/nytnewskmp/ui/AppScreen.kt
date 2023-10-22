@@ -30,18 +30,22 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.mls.kmp.mor.nytnewskmp.ui.bookmarks.BookmarksTabRoute
 import com.mls.kmp.mor.nytnewskmp.ui.search.SearchTabRoute
+import com.mls.kmp.mor.nytnewskmp.ui.settings.DisclaimerDialog
+import com.mls.kmp.mor.nytnewskmp.ui.settings.SettingsViewModel
 
 class AppScreen : Screen {
 
@@ -52,6 +56,9 @@ class AppScreen : Screen {
         val shouldShowNavigationBar by remember(windowSizeClass) {
             mutableStateOf(windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact)
         }
+
+        val settingsViewModel = getScreenModel<SettingsViewModel>()
+        val settingsState by settingsViewModel.state.collectAsState()
 
         TabNavigator(HomeTab) {
             Scaffold(
@@ -66,6 +73,16 @@ class AppScreen : Screen {
                                 ),
                             ),
                     ) {
+
+                        if (settingsState.showDisclaimer) {
+                            DisclaimerDialog(onDismiss = { dontShowAgain ->
+                                if (dontShowAgain) {
+                                    settingsViewModel.setShowDisclaimer(false)
+                                } else {
+                                    settingsViewModel.dismissDisclaimer()
+                                }
+                            })
+                        }
 
                         if (!shouldShowNavigationBar) {
                             NytNavigationRail()
