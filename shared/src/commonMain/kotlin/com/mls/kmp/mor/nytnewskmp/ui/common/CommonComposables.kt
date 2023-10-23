@@ -1,10 +1,16 @@
 package com.mls.kmp.mor.nytnewskmp.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ImageNotSupported
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,8 +39,26 @@ fun ItemImage(
                     .fillMaxSize()
                     .shimmerBackground()
             )
-        }
+        },
+        onFailure =  { ErrorLoadingImageStateBox() }
     )
+}
+
+@Composable
+private fun ErrorLoadingImageStateBox() {
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ImageNotSupported,
+                contentDescription = "Error loading image",
+                modifier = Modifier.fillMaxSize(0.5f)
+            )
+        }
+    }
 }
 
 @Composable
