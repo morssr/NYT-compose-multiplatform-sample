@@ -39,6 +39,7 @@ import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.common.CustomCollapsingToolbarContainer
 import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
+import com.mls.kmp.mor.nytnewskmp.ui.common.collapseAppBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.HomeTopAppBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestTabsRow
 import com.mls.kmp.mor.nytnewskmp.ui.home.InterestsBar
@@ -156,7 +157,8 @@ class HomeScreenRoute : Screen {
                 onBookmarkClick = { id, bookmarked ->
                     viewModel.updateBookmarks(id, bookmarked)
                 },
-                pagerState = pagerState
+                pagerState = pagerState,
+                onTabClick = { scrollBehavior.state.collapseAppBar() }
             )
         }
     }
@@ -179,6 +181,7 @@ fun HomeScreenContent(
     onArticleClick: (ArticleUIModel) -> Unit = {},
     onTopicsChooserDialogDismiss: (List<Topics>) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
+    onTabClick: (pageIndex: Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
 
@@ -215,6 +218,7 @@ fun HomeScreenContent(
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(page)
                     }
+                    onTabClick(page)
                 },
             )
 
