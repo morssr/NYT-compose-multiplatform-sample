@@ -58,6 +58,7 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.mls.kmp.mor.nytnewskmp.library.MR
+import com.mls.kmp.mor.nytnewskmp.ui.common.GradientBackgroundContainer
 import com.mls.kmp.mor.nytnewskmp.ui.common.ItemImage
 import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
 import com.mohamedrejeb.calf.ui.progress.AdaptiveCircularProgressIndicator
@@ -144,11 +145,13 @@ fun SearchScreenContent(
             placeholder = { Text(text = stringResource(MR.strings.search_for_something_message)) },
             colors = SearchBarDefaults.colors(containerColor = MaterialTheme.colorScheme.background)
         ) {
-            SearchResults(
-                searchResult,
-                onArticleClick = onArticleClick,
-                onBookmarkClick = onBookmarkClick
-            )
+            GradientBackgroundContainer {
+                SearchResults(
+                    searchResult,
+                    onArticleClick = onArticleClick,
+                    onBookmarkClick = onBookmarkClick
+                )
+            }
         }
     }
 }
@@ -225,7 +228,7 @@ fun SearchArticleCell(
             containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        elevation = CardDefaults.cardElevation(1.dp),
+        elevation = CardDefaults.cardElevation(0.dp),
     ) {
 
         ItemImage(

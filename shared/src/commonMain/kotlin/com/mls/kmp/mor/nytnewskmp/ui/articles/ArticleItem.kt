@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.rounded.BookmarkRemove
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +36,7 @@ fun ArticleItem(
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onArticleClick: (ArticleUIModel) -> Unit = {}
 ) {
-    ElevatedCard(
+    Card(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize(animationSpec = tween(50))
@@ -47,7 +47,8 @@ fun ArticleItem(
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onSurface
-        )
+        ),
+        elevation = CardDefaults.cardElevation(0.dp)
     ) {
 
         ItemImage(
@@ -98,7 +99,7 @@ fun ArticleItem(
             collapsedMaxLine = 3,
             text = article.content,
             showMoreText = stringResource(MR.strings.expand_text_more),
-            onUnAnnotatedTextClick = { onArticleClick }
+            onUnAnnotatedTextClick = { onArticleClick(article) }
         )
     }
 }

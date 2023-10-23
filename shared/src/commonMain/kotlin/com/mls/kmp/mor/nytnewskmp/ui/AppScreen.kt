@@ -43,6 +43,7 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.mls.kmp.mor.nytnewskmp.ui.bookmarks.BookmarksTabRoute
+import com.mls.kmp.mor.nytnewskmp.ui.common.GradientBackgroundContainer
 import com.mls.kmp.mor.nytnewskmp.ui.search.SearchTabRoute
 import com.mls.kmp.mor.nytnewskmp.ui.settings.DisclaimerDialog
 import com.mls.kmp.mor.nytnewskmp.ui.settings.SettingsViewModel
@@ -86,8 +87,12 @@ class AppScreen : Screen {
 
                         if (!shouldShowNavigationBar) {
                             NytNavigationRail()
+                            CurrentTab()
+                        } else {
+                            GradientBackgroundContainer {
+                                CurrentTab()
+                            }
                         }
-                        CurrentTab()
                     }
                 },
                 bottomBar = {

@@ -25,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -88,6 +89,7 @@ class HomeScreenRoute : Screen {
 
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            containerColor = Color.Transparent,
             topBar = {
                 CustomCollapsingToolbarContainer(
                     initialHeight = collapsingToolbarHeight,
@@ -183,7 +185,10 @@ fun HomeScreenContent(
     val coroutineScope = rememberCoroutineScope()
     var showInterestsSelectionDialog by remember { mutableStateOf(false) }
 
-    Surface(modifier = modifier) {
+    Surface(
+        modifier = modifier,
+        color = Color.Transparent,
+    ) {
 
         if (showInterestsSelectionDialog) {
             InterestsBottomSheetDialog(
