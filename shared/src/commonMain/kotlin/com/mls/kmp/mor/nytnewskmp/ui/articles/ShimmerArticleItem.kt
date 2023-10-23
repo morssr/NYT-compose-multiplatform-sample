@@ -1,15 +1,17 @@
 package com.mls.kmp.mor.nytnewskmp.ui.articles
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -22,12 +24,16 @@ import com.mls.kmp.mor.nytnewskmp.library.MR
 import com.mls.kmp.mor.nytnewskmp.ui.common.shimmerBackground
 import dev.icerock.moko.resources.compose.stringResource
 
-
 @Composable
 fun LoadingShimmerArticlesList() {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        repeat(3) {
-            ShimmerArticleItem(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(300.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(20) {
+            ShimmerArticleItem(modifier = Modifier)
         }
     }
 }
