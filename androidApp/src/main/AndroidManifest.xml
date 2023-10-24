@@ -4,17 +4,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="false"
-        android:supportsRtl="true"
         android:name=".App"
-        android:label="NYT KMP Sample"
+        android:allowBackup="false"
         android:icon="@mipmap/nyt_ic_launcher"
+        android:label="NYT KMP Sample"
         android:roundIcon="@mipmap/nyt_ic_launcher_round"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.App.Starting"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
