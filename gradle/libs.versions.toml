@@ -5,6 +5,7 @@ kotlinx-coroutines-core = "1.7.1"
 androidx-core = "1.7.0"
 androidx-activity-compose = "1.7.2"
 androidx-compose = "1.5.1"
+androidx-splashScreen = "1.0.1"
 
 ktorClient = "2.3.4"
 voyager = "1.0.0-rc07"
@@ -32,6 +33,8 @@ androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.
 androidx-compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+
+androidx-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashScreen" }
 
 # Ktor - Networking
 ktor-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClient" }

@@ -49,4 +49,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material)
     implementation(libs.koin.android)
+
+    //UI - Splash Screen
+    implementation (libs.androidx.splashScreen)
 }
