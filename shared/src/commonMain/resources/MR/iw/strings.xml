@@ -49,6 +49,17 @@
     <string name="app_information_location">ישראל, תל-אביב</string>
     <string name="send_email_using">שלח אימייל באמצעות..</string>
 
+    // Errors
+    <string name="no_results_found_message">אופס, אין תוצאה…</string>
+    <string name="something_went_wrong_message">אופס, משהו השתבש…</string>
+    <string name="too_many_requests_error_message">יותר מדי בקשות בפרק זמן קצר, המתן מספר דקות ונסה שוב</string>
+    <string name="check_your_internet_connection_message">בדוק את חיבור האינטרנט שלך ונסה שוב</string>
+    <string name="no_internet_connection">אין חיבור אינטרנט</string>
+    <string name="please_check_your_internet_connection_and_try_again">אנא בדוק את חיבור האינטרנט שלך ונסה שוב</string>
+    <string name="try_again">נסה שוב</string>
+    <string name="something_went_wrong">שגיאה, משהו השתבש</string>
+    <string name="please_try_again_later">בבקשה נסה שוב מאוחר יותר.</string>
+
     <!--content description-->
     <string name="add_article_to_bookmarks">הוסף מאמר מהמועדפים</string>
     <string name="remove_article_from_bookmarks">הסר מאמר מהמועדפים</string>

@@ -14,6 +14,7 @@ import com.mls.kmp.mor.nytnewskmp.ui.articles.toArticleUI
 import com.mls.kmp.mor.nytnewskmp.ui.populars.PopularUiModel
 import com.mls.kmp.mor.nytnewskmp.ui.populars.toPopularUiList
 import com.mls.kmp.mor.nytnewskmp.utils.Response
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
@@ -128,9 +129,24 @@ class HomeScreenViewModel(
             ).launchIn(coroutineScope)
     }
 
-    fun refreshCurrentTopic(topic: Topics) {
+    fun updateCurrentTopic(topic: Topics) {
         log.d { "refreshCurrentTopic() called with: topic = $topic" }
         mutableState.update { it.copy(currentTopic = topic) }
+    }
+
+    // reload current topic to trigger feed state update. *workaround to re-emit the same value with StateFlow *
+    fun reloadCurrentTopic() {
+        log.d { "reloadCurrentTopic() called" }
+        val cachedCurrentTopic = state.value.currentTopic
+        coroutineScope.launch() {
+            val randomTopic = Topics.values().toMutableList().let {
+                it.remove(cachedCurrentTopic)
+                it.random()
+            }
+            mutableState.update { it.copy(currentTopic = randomTopic) }
+            delay(30)
+            mutableState.update { it.copy(currentTopic = cachedCurrentTopic) }
+        }
     }
 
     fun updateTopics(topics: List<Topics>) {

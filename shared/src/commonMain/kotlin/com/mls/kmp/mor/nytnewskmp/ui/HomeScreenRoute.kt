@@ -11,7 +11,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -38,6 +37,7 @@ import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticleUIModel
 import com.mls.kmp.mor.nytnewskmp.ui.articles.ArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.common.CustomCollapsingToolbarContainer
+import com.mls.kmp.mor.nytnewskmp.ui.common.UnknownErrorElement
 import com.mls.kmp.mor.nytnewskmp.ui.common.WebViewRoute
 import com.mls.kmp.mor.nytnewskmp.ui.common.collapseAppBar
 import com.mls.kmp.mor.nytnewskmp.ui.home.HomeTopAppBar
@@ -74,7 +74,7 @@ class HomeScreenRoute : Screen {
             snapshotFlow { pagerState.currentPage }.collect { page ->
                 // Do something with each page change, for example:
                 // viewModel.sendPageSelectedEvent(page)
-                viewModel.refreshCurrentTopic(state.topics[page])
+                viewModel.updateCurrentTopic(state.topics[page])
             }
         }
 
@@ -158,7 +158,8 @@ class HomeScreenRoute : Screen {
                     viewModel.updateBookmarks(id, bookmarked)
                 },
                 pagerState = pagerState,
-                onTabClick = { scrollBehavior.state.collapseAppBar() }
+                onTabClick = { scrollBehavior.state.collapseAppBar() },
+                onTryAgainClick = { viewModel.reloadCurrentTopic() },
             )
         }
     }
@@ -182,6 +183,7 @@ fun HomeScreenContent(
     onTopicsChooserDialogDismiss: (List<Topics>) -> Unit = {},
     onBookmarkClick: (String, Boolean) -> Unit = { _, _ -> },
     onTabClick: (pageIndex: Int) -> Unit = {},
+    onTryAgainClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
 
@@ -235,7 +237,7 @@ fun HomeScreenContent(
                     }
 
                     is ArticlesFeedState.Error -> {
-                        Text(text = "Error ${feedState.error}")
+                        UnknownErrorElement { onTryAgainClick() }
                     }
 
                     is ArticlesFeedState.Success -> {
