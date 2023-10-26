@@ -34,8 +34,7 @@ This architecture fosters modularization, smooth navigation, agile data handling
 - **Material 3:** Adopting Google's design tenets for a cohesive user experience.
 - **SQLDelight:** Providing cross-platform data persistence.
 - **Ktor:** Cross-platform network request handling.
-- **Firebase:** Expanding app functionalities and characteristics.
-
+  
 ## Design Approach
 
 NYT's UI is sculpted with Jetpack Compose Multiplatform. Adhering closely to Material 3 guidelines, the app boasts:
