@@ -44,3 +44,5 @@ NYT's UI is sculpted with Jetpack Compose Multiplatform. Adhering closely to Mat
 - **Typography:** Enhanced readability coupled with a contemporary look.
 - **Layout:** Flexible layouts that gracefully adjust to various device dimensions and orientations.
 - **Dark Mode:** Thoughtful dark mode design catering to evening reads.
+
+![readme_multiplatform_screenshot_light_dark_large](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/a8f8542a-c9d2-4667-99dd-ca2e850d2140)
