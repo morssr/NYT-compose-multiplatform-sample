@@ -1,4 +1,4 @@
-# NYT News App - Multiplatform Skill Showcase
+# NYT News App - Multiplatform Sample
 
 This App exemplifies my adeptness in Kotlin Multiplatform Mobile (KMM) development, demonstrating the application of industry best practices and the utilization of modern cross-platform technologies to deliver a captivating news consumption experience.
 
