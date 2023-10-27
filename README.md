@@ -11,7 +11,7 @@ This App exemplifies my adeptness in Kotlin Multiplatform Mobile (KMM) developme
 - **Responsive Design:** Experience a uniform and visually delightful layout on both Android and iOS devices.
 - **Dark Mode:** Toggle to dark mode for an eye-friendly reading ambiance in dim settings.
 
-![readme_multiplatform_screenshot_light](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/e0993b28-1cef-487c-89cf-3ace4968f63c)
+![readme_multiplatform_screenshot_light](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/313a6785-088b-430e-854f-8309fdf20585)
 
 ## Architecture
 
@@ -44,4 +44,4 @@ NYT's UI is sculpted with Jetpack Compose Multiplatform. Adhering closely to Mat
 - **Layout:** Flexible layouts that gracefully adjust to various device dimensions and orientations.
 - **Dark Mode:** Thoughtful dark mode design catering to evening reads.
 
-![readme_multiplatform_screenshot_light_dark_large](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/a8f8542a-c9d2-4667-99dd-ca2e850d2140)
+![readme_multiplatform_screenshot_light_dark_large](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/e5dcc8d8-ae8d-4e33-bf2e-e5a97c25dc21)
