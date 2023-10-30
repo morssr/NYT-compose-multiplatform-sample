@@ -10,8 +10,8 @@ This App exemplifies my adeptness in Kotlin Multiplatform Mobile (KMM) developme
 - **Bookmarks:** Archive compelling articles to revisit later.
 - **Responsive Design:** Experience a uniform and visually delightful layout on both Android and iOS devices.
 - **Dark Mode:** Toggle to dark mode for an eye-friendly reading ambiance in dim settings.
-
-![readme_multiplatform_screenshot_light](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/313a6785-088b-430e-854f-8309fdf20585)
+  
+![readme_multiplatform_screenshot_light](https://github.com/morssr/NYT-compose-multiplatform-sample/assets/68958800/460b6d4c-91e4-4fc9-8dbe-202b46d2c6d6)
 
 ## Architecture
 
