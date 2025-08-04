@@ -10,8 +10,7 @@ data class SearchResponse(
 
 @Serializable
 data class SearchArticlesResponse(
-    val docs: List<SearchArticleResponse>,
-    val meta: Meta
+    val docs: List<SearchArticleResponse>
 )
 
 @Serializable
@@ -21,8 +20,8 @@ data class SearchArticleResponse(
     val byline: Byline,
     val document_type: String,
     val headline: Headline,
-    val lead_paragraph: String,
-    val multimedia: List<Multimedia>? = null,
+    val print_section: String,
+    val multimedia: Multimedia?,
     val pub_date: String,
     val section_name: String,
     val snippet: String,
@@ -39,10 +38,17 @@ data class Headline(
 
 @Serializable
 data class Multimedia(
-    val width: Int,
-    val height: Int,
-    val type: String,
+    val caption: String,
+    val credit: String,
+    val default: Media,
+    val thumbnail: Media
+)
+
+@Serializable
+data class Media(
     val url: String,
+    val height: Int,
+    val width: Int
 )
 
 @Serializable
