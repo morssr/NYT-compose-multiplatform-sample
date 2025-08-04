@@ -13,16 +13,9 @@ plugins {
 }
 
 kotlin {
-
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-    }
-
-    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
-        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
-            export(libs.moko.resources.compose)
-        }
     }
 
     listOf(
@@ -74,7 +67,6 @@ kotlin {
         }
 
         commonTest.dependencies {
-            implementation(kotlin("test"))
             implementation(libs.ktor.mock)
             implementation(libs.koin.test)
             implementation(libs.paging.testing)

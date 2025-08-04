@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.10.0"
 kotlin = "2.2.0"
 #ios error until 1.7.1
 compose-plugin = "1.8.1"
@@ -26,9 +26,9 @@ koinCompose = "4.0.2"
 datastorePreferencesCore = "1.1.7"
 kermit = "2.0.5"
 kamelImage = "1.0.7"
-mokoResources = "0.24.5"
+mokoResources = "0.25.0"
 mokoMvvm = "0.16.1"
-calf-ui = "0.6.1"
+calf-ui = "0.8.0"
 calf-webview = "0.8.0"
 windowSizeClass = "0.3.0"
 pagingComposeCommon = "3.3.0-alpha02-0.4.0"
