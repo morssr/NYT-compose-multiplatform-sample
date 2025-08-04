@@ -12,14 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissState
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SwipeToDismiss
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDismissState
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -107,24 +107,26 @@ fun BookmarkItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeToDeleteBookmarkItem(
-    modifier: Modifier = Modifier,
     bookmarked: BookmarkUiModel,
-    dismissState: DismissState = rememberDismissState(),
+    swipeToDismissBoxState: SwipeToDismissBoxState = rememberSwipeToDismissBoxState(),
+    modifier: Modifier = Modifier,
     onArticleClick: (article: BookmarkUiModel) -> Unit = {},
 ) {
-    SwipeToDismiss(
+    SwipeToDismissBox(
         modifier = modifier,
-        state = dismissState,
-        directions = setOf(DismissDirection.EndToStart),
-        dismissContent = {
-            BookmarkItem(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .alpha(if (dismissState.progress <= 0.9) 1f - dismissState.progress else 1f),
-                bookmarkedStory = bookmarked,
-                onStoryClick = onArticleClick
-            )
-        },
-        background = { SwipeToDeleteBackground(dismissState = dismissState) },
-    )
+        state = swipeToDismissBoxState,
+        backgroundContent = {
+            if (swipeToDismissBoxState.dismissDirection == SwipeToDismissBoxValue.EndToStart) {
+                SwipeToDeleteBackground(swipeToDismissBoxState)
+            }
+        }
+    ) {
+        BookmarkItem(
+            modifier = modifier
+                .fillMaxWidth()
+                .alpha(if (swipeToDismissBoxState.progress <= 0.9) 1f - swipeToDismissBoxState.progress else 1f),
+            bookmarkedStory = bookmarked,
+            onStoryClick = onArticleClick
+        )
+    }
 }

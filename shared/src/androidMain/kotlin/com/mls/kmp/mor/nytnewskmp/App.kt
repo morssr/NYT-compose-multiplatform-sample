@@ -1,7 +1,6 @@
-package com.mls.kmp.mor.nytnewskmp.android
+package com.mls.kmp.mor.nytnewskmp
 
 import android.app.Application
-import com.mls.kmp.mor.nytnewskmp.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

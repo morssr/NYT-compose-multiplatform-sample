@@ -16,16 +16,17 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDismissState
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -84,7 +85,7 @@ fun BookmarksScreenContent(
 
     LazyVerticalStaggeredGrid(
         state = lazyListState,
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         columns = StaggeredGridCells.Adaptive(300.dp),
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -110,21 +111,22 @@ fun BookmarksScreenContent(
             items = articles,
             key = { article -> article.id }
         ) { article ->
-
-            val dismissState = rememberDismissState(
-                confirmValueChange = {
-                    if (it == DismissValue.DismissedToStart) {
+            val swipeToDismissBoxValue = rememberSwipeToDismissBoxState(
+                confirmValueChange = { it ->
+                    if (it == SwipeToDismissBoxValue.EndToStart) {
                         onArticleDelete(article.id)
+                        true
+                    } else {
+                        false
                     }
-                    true
                 },
-                positionalThreshold = { 128.dp.toPx() }
+                positionalThreshold = with(LocalDensity.current) { { 136.dp.toPx() } }
             )
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 SwipeToDeleteBookmarkItem(
-                    modifier = Modifier.animateItemPlacement(),
                     bookmarked = article,
-                    dismissState = dismissState,
+                    swipeToDismissBoxState = swipeToDismissBoxValue,
+                    modifier = Modifier.animateItem(),
                     onArticleClick = onArticleClick
                 )
             }

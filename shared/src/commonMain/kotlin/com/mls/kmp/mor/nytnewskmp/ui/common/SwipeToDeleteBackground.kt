@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissState
-import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,26 +31,32 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SwipeToDeleteBackground(dismissState: DismissState) {
-    val direction = dismissState.dismissDirection ?: return
+fun SwipeToDeleteBackground(dismissState: SwipeToDismissBoxState) {
+    val direction = dismissState.dismissDirection
 
     val color by animateColorAsState(
         when (dismissState.targetValue) {
-            DismissValue.Default -> MaterialTheme.colorScheme.surfaceVariant
-            DismissValue.DismissedToEnd -> Color.Green
-            DismissValue.DismissedToStart -> MaterialTheme.colorScheme.error
+            SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.surfaceVariant
+            SwipeToDismissBoxValue.StartToEnd -> Color.Green
+            SwipeToDismissBoxValue.EndToStart -> MaterialTheme.colorScheme.error
         }
     )
     val alignment = when (direction) {
-        DismissDirection.StartToEnd -> Alignment.CenterStart
-        DismissDirection.EndToStart -> Alignment.CenterEnd
+        SwipeToDismissBoxValue.StartToEnd -> Alignment.CenterStart
+        SwipeToDismissBoxValue.EndToStart -> Alignment.CenterEnd
+        SwipeToDismissBoxValue.Settled -> {
+            Alignment.Center
+        }
     }
     val icon = when (direction) {
-        DismissDirection.StartToEnd -> Icons.Default.Done
-        DismissDirection.EndToStart -> Icons.Default.Delete
+        SwipeToDismissBoxValue.StartToEnd -> Icons.Default.Done
+        SwipeToDismissBoxValue.EndToStart -> Icons.Default.Delete
+        SwipeToDismissBoxValue.Settled -> {
+            Icons.Default.Bookmarks
+        }
     }
     val scale by animateFloatAsState(
-        if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f
+        if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 0.75f else 1f
     )
 
     Box(
