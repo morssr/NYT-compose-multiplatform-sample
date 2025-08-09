@@ -1,8 +1,7 @@
-package com.mls.kmp.mor.nytnewskmp.android
+package com.mls.kmp.mor.nytnewskmp
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.mls.kmp.mor.nytnewskmp.MyApp
 import com.mls.kmp.mor.nytnewskmp.ui.articles.LoadingShimmerArticlesList
 import com.mls.kmp.mor.nytnewskmp.ui.theme.MyAppTheme
 

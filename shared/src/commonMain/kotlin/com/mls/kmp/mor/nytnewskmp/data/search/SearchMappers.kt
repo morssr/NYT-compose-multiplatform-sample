@@ -18,11 +18,11 @@ fun SearchArticleResponse.toSearchEntity(): SearchEntity {
         id = _id,
         headline = headline.main,
         content = abstract,
-        leadParagraph = lead_paragraph,
+        leadParagraph = print_section ,
         subsection = subsection_name,
         byline = byline.original,
         publishedDate = parseSearchApiResponseDate(),
-        imageUrl = extractImageFromResponse(),
+        imageUrl = multimedia?.default?.url ?: "",
         storyUrl = web_url
     )
 }
@@ -42,10 +42,6 @@ private fun SearchArticleResponse.parseSearchApiResponseDate(): Instant {
         Clock.System.now()
     }
 }
-
-private fun SearchArticleResponse.extractImageFromResponse() =
-    multimedia?.find { it.height in 300..500 }?.url?.let { IMAGE_PREFIX + it } ?: ""
-
 
 fun Search.toSearchEntity(): SearchEntity {
     return SearchEntity(

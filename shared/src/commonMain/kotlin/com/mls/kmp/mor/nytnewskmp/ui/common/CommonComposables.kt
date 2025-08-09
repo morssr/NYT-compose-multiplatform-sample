@@ -33,7 +33,7 @@ fun ItemImage(
     modifier: Modifier = Modifier
 ) {
     KamelImage(
-        resource = asyncPainterResource(Url(url)),
+        resource = { asyncPainterResource(Url(url)) },
         contentDescription = "image of $contentDescription",
         modifier = modifier,
         contentScale = ContentScale.Crop,
