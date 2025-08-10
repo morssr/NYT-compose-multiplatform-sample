@@ -1,7 +1,7 @@
 package com.mls.kmp.mor.nytnewskmp.ui
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.aricles.common.ArticlesRepository
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.BookmarksRepository
@@ -49,10 +49,10 @@ class HomeScreenViewModel(
         repository.getMyTopicsListStream()
             .onEach { topics -> mutableState.update { it.copy(topics = topics) } }
             .stateIn(
-                scope = coroutineScope,
+                scope = screenModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = defaultTopics
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
     }
 
     private fun launchArticlesAndBookmarksUpdatesHotFlow() {
@@ -94,11 +94,11 @@ class HomeScreenViewModel(
                 }
             }
             .stateIn(
-                coroutineScope,
+                screenModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = Response.Loading
             )
-            .launchIn(coroutineScope)
+            .launchIn(screenModelScope)
     }
 
     private fun launchPopularsUpdatesHotFlow() {
@@ -123,10 +123,10 @@ class HomeScreenViewModel(
                 }
             }
             .stateIn(
-                scope = coroutineScope,
+                scope = screenModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = Response.Loading
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
     }
 
     fun updateCurrentTopic(topic: Topics) {
@@ -138,7 +138,7 @@ class HomeScreenViewModel(
     fun reloadCurrentTopic() {
         log.d { "reloadCurrentTopic() called" }
         val cachedCurrentTopic = state.value.currentTopic
-        coroutineScope.launch() {
+        screenModelScope.launch() {
             val randomTopic = Topics.values().toMutableList().let {
                 it.remove(cachedCurrentTopic)
                 it.random()
@@ -151,14 +151,14 @@ class HomeScreenViewModel(
 
     fun updateTopics(topics: List<Topics>) {
         log.d { "updateTopic() called with: topics = $topics" }
-        coroutineScope.launch() {
+        screenModelScope.launch() {
             repository.updateMyTopicsList(topics)
         }
     }
 
     fun updateBookmarks(articleId: String, bookmarked: Boolean) {
         log.d { "onBookmarkClick() called with: article = $articleId" }
-        coroutineScope.launch {
+        screenModelScope.launch {
             val articleModel = repository.getArticleById(articleId)
             if (bookmarked) {
                 bookmarksRepository.deleteBookmarkById(articleModel.id)

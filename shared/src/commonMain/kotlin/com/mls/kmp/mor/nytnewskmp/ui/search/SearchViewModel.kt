@@ -4,7 +4,7 @@ import androidx.paging.LoadStates
 import app.cash.paging.PagingData
 import app.cash.paging.map
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.search.SearchRepository
 import kotlinx.coroutines.flow.Flow
@@ -32,28 +32,28 @@ class SearchViewModel(
             .map { it.toSearchUiModels() }
             .onEach { lastSearchItems -> mutableState.update { it.copy(lastSearchItems = lastSearchItems) } }
             .stateIn(
-                coroutineScope,
+                screenModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = emptyList()
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
 
         repository.getInterestsList()
             .map { it.toSearchUiModels() }
             .onEach { interestsList -> mutableState.update { it.copy(interestsList = interestsList) } }
             .stateIn(
-                coroutineScope,
+                screenModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = emptyList()
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
 
         repository.getRecommendedList()
             .map { it.toSearchUiModels() }
             .onEach { recommendedList -> mutableState.update { it.copy(recommendedList = recommendedList) } }
             .stateIn(
-                coroutineScope,
+                screenModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = emptyList()
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
     }
 
     fun searchStories(query: String) {
@@ -69,7 +69,7 @@ class SearchViewModel(
 
     fun bookmarkArticle(searchUiModel: SearchUiModel) {
         log.d { "bookmarkArticle() called with searchUiModel: $searchUiModel" }
-        coroutineScope.launch {
+        screenModelScope.launch {
             repository.bookmarkSearchItem(searchUiModel.toSearchModel())
         }
     }

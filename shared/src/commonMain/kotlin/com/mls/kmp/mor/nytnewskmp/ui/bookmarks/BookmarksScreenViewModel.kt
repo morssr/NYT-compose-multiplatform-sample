@@ -1,7 +1,7 @@
 package com.mls.kmp.mor.nytnewskmp.ui.bookmarks
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.bookmarks.BookmarksRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,15 +28,15 @@ class BookmarksScreenViewModel(
             }
             .onEach { bookmarks -> mutableState.update { it.copy(bookmarks = bookmarks) } }
             .stateIn(
-                scope = coroutineScope,
+                scope = screenModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = emptyList()
-            ).launchIn(coroutineScope)
+            ).launchIn(screenModelScope)
     }
 
     fun deleteBookmark(id: String) {
         log.d { "deleteBookmarkById() called with id: $id" }
-        coroutineScope.launch {
+        screenModelScope.launch {
             repository.deleteBookmarkById(id)
         }
     }

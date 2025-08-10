@@ -17,7 +17,7 @@ androidx-compose = "1.6.8"
 androidx-splashScreen = "1.0.1"
 
 ktorClient = "3.2.1"
-voyager = "1.0.0-rc07"
+voyager = "1.1.0-beta03"
 kotlinx-datetime = "0.6.2"
 kotlinx-serialization = "1.8.0"
 sqlDelight = "2.0.2"

@@ -1,7 +1,7 @@
 package com.mls.kmp.mor.nytnewskmp.ui.settings
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import co.touchlab.kermit.Logger
 import com.mls.kmp.mor.nytnewskmp.data.settings.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,16 +26,16 @@ class SettingsViewModel(
                 mutableState.update { settingsUiState.toUiState(it) }
             }
             .stateIn(
-                scope = coroutineScope,
+                scope = screenModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = SettingsUiState()
             )
-            .launchIn(coroutineScope)
+            .launchIn(screenModelScope)
     }
 
     fun onThemeChanged(theme: ThemeConfig) {
         log.d { "onThemeChanged(): called with theme: $theme" }
-        coroutineScope.launch {
+        screenModelScope.launch {
             settingsRepository.setTheme(theme)
         }
     }
@@ -47,7 +47,7 @@ class SettingsViewModel(
 
     fun setShowDisclaimer(show: Boolean) {
         log.d { "onShowDisclaimerChanged(): called with show: $show" }
-        coroutineScope.launch {
+        screenModelScope.launch {
             settingsRepository.setShowDisclaimer(show)
         }
     }
